@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 function BarberProfile() {
     return (
@@ -13,7 +13,7 @@ function BarberProfile() {
                 <p>Barber email: </p>
                 <p>Barber hours: </p>
                 <div>
-                <button>Book</button>
+                <Link to="/booker"><button>Book Now</button></Link>
                 </div>
             </div>
         </div>

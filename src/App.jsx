@@ -1,20 +1,25 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import BarberProfile from './pages/BarberProfile';
-import { createContext, useState } from 'react';
-
-export const nameContext = createContext();
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Booker from './pages/Booker';
+import Confirmation from './pages/Confirmation';
 
 function App() {
-  const [name, setName] = useState('Guest');
 
   return (
-    <>
-      <nameContext.Provider value={{ name, setName }}>
-        <Home />
-      </nameContext.Provider>
-      <br/><br/><br/><br/>
-      <BarberProfile/>
-    </>
+    <Router>
+      <Header/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/barber-profile" element={<BarberProfile />} />
+        <Route path="/booker" element={<Booker/>}/>
+        <Route path="/confirmation" element={<Confirmation/>}/>
+        {/* Add more routes as needed */}
+      </Routes>
+      <Footer/>
+    </Router>
   );
 }
 

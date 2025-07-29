@@ -1,16 +1,13 @@
-import { useContext, useState } from 'react';
-import { nameContext } from '../App';
+import { Link } from "react-router-dom";
 
 function Home() {
-    const nameHolder = useContext(nameContext);
 
     return (
         <div>
-        <h1>The Barber Book</h1>
-        <p>Welcome, {nameHolder.name}</p>
+        <p>Welcome, Guest</p>
         <h2>Barber lookup</h2>
         <input type="text" placeholder="Enter barber name" />
-        <button>Search</button>
+        <Link to="/barber-profile"><button>Search</button></Link>
         </div>
     )
 }
