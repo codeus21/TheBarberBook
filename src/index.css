@@ -1,0 +1,31 @@
+/* CSS Reset to remove white borders */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove any default browser styling */
+body {
+  font-family: 'Georgia', serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Ensure all elements inherit the dark background */
+* {
+  background-color: transparent;
+}
