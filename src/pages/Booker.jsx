@@ -10,15 +10,15 @@ function Booker() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [bookedSlots, setBookedSlots] = useState(new Set()); // In real app, this would come from backend
+    const [bookedSlots, setBookedSlots] = useState(new Set());
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     
-    // Service options
-    const services = [
-        { id: 1, name: "Classic Haircut", price: "$35", duration: "50 min" },
-        { id: 2, name: "Haircut with Designs", price: "$40", duration: "60 min" },
-        { id: 3, name: "Beard & Mustache Trim", price: "$10", duration: "10 min" },
-        { id: 4, name: "Eyebrow Shaping", price: "$5", duration: "5 min" }
-    ];
+    // API base URL - update this to match your C# API URL
+    const API_BASE_URL = 'https://localhost:7074/api';
+    
+    // Service options - will be loaded from API
+    const [services, setServices] = useState([]);
     
     // Available time slots (8am - 8pm, Monday - Friday)
     const timeSlots = [
@@ -79,6 +79,7 @@ function Booker() {
         if (isDateAvailable(date) && !isDateBooked(date)) {
             setSelectedDate(date);
             setSelectedTime(null); // Reset time when date changes
+            loadBookedSlots(date); // Load booked slots for this date
         }
     };
     
@@ -92,24 +93,102 @@ function Booker() {
         setSelectedService(service);
     };
     
-    const handleBookAppointment = () => {
+    // Load services from API
+    useEffect(() => {
+        const loadServices = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/Services`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setServices(data);
+                } else {
+                    setError('Failed to load services');
+                }
+            } catch (err) {
+                setError('Error loading services');
+                console.error('Error loading services:', err);
+            }
+        };
+        
+        loadServices();
+    }, []);
+
+    // Load booked slots for a specific date
+    const loadBookedSlots = async (date) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/Appointments/available-slots/${date.toISOString().split('T')[0]}`);
+            if (response.ok) {
+                const availableSlots = await response.json();
+                // Convert available slots to booked slots format
+                const allSlots = timeSlots;
+                const booked = allSlots.filter(slot => !availableSlots.includes(slot));
+                setBookedSlots(new Set(booked));
+            }
+        } catch (err) {
+            console.error('Error loading booked slots:', err);
+        }
+    };
+
+    const handleBookAppointment = async () => {
         if (selectedService && selectedDate && selectedTime) {
-            // In a real app, you would send this data to your backend
-            const appointmentData = {
-                service: selectedService,
-                date: selectedDate,
-                time: selectedTime
-            };
+            setLoading(true);
+            setError(null);
             
-            // Store in localStorage for demo purposes
-            localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
-            
-            // Mark this slot as booked
-            const dateString = selectedDate.toDateString();
-            setBookedSlots(prev => new Set([...prev, dateString]));
-            
-            // Navigate to confirmation page
-            navigate('/confirmation');
+            try {
+                // Convert time format for API
+                const timeParts = selectedTime.split(' ');
+                const time = timeParts[0];
+                const period = timeParts[1];
+                let [hours, minutes] = time.split(':');
+                hours = parseInt(hours);
+                
+                if (period === 'PM' && hours !== 12) hours += 12;
+                if (period === 'AM' && hours === 12) hours = 0;
+                
+                const timeString = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
+                
+                const appointmentData = {
+                    serviceId: selectedService.id,
+                    appointmentDate: selectedDate.toISOString().split('T')[0],
+                    appointmentTime: timeString,
+                    customerName: "John Doe", // In real app, get from form
+                    customerPhone: "123-456-7890", // In real app, get from form
+                    customerEmail: "john@example.com", // In real app, get from form
+                    notes: "Online booking",
+                    status: "Confirmed"
+                };
+                
+                const response = await fetch(`${API_BASE_URL}/Appointments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+                
+                if (response.ok) {
+                    const createdAppointment = await response.json();
+                    
+                    // Store appointment data for confirmation page
+                    localStorage.setItem('appointmentData', JSON.stringify({
+                        service: selectedService,
+                        date: selectedDate,
+                        time: selectedTime,
+                        appointmentId: createdAppointment.id
+                    }));
+                    
+                    // Navigate to confirmation page
+                    navigate('/confirmation');
+                } else {
+                    const errorData = await response.text();
+                    setError(errorData || 'Failed to book appointment');
+                }
+            } catch (err) {
+                setError('Error booking appointment');
+                console.error('Error booking appointment:', err);
+            } finally {
+                setLoading(false);
+            }
         }
     };
     
@@ -151,6 +230,11 @@ function Booker() {
                 <div className="booking-header">
                     <h1 className="booking-title">Book Your Appointment</h1>
                     <p className="booking-subtitle">Select Your Service, Date, and Time</p>
+                    {error && (
+                        <div className="error-message" style={{ color: 'red', marginTop: '10px' }}>
+                            {error}
+                        </div>
+                    )}
                 </div>
                 
                 <div className="booking-form">
@@ -166,8 +250,8 @@ function Booker() {
                                         onClick={() => handleServiceSelect(service)}
                                     >
                                         <div className="service-name">{service.name}</div>
-                                        <div className="service-price">{service.price}</div>
-                                        <div className="service-duration">{service.duration}</div>
+                                        <div className="service-price">${service.price}</div>
+                                        <div className="service-duration">{service.durationMinutes} min</div>
                                     </div>
                                 ))}
                             </div>
@@ -261,8 +345,9 @@ function Booker() {
                         <button 
                             className="book-appointment-btn"
                             onClick={handleBookAppointment}
+                            disabled={loading}
                         >
-                            Confirm Booking
+                            {loading ? 'Booking...' : 'Confirm Booking'}
                         </button>
                     </div>
                 )}
