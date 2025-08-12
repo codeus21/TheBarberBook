@@ -67,7 +67,7 @@ function Confirmation(){
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">Duration:</span>
-                        <span className="detail-value">{appointmentData.service.duration}</span>
+                        <span className="detail-value">60 minutes</span>
                     </div>
                 </div>
                 

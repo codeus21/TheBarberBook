@@ -6,7 +6,8 @@ function Booker() {
     const navigate = useNavigate();
     
     // State management
-    const [selectedService, setSelectedService] = useState(null);
+    const [selectedHaircut, setSelectedHaircut] = useState(null);
+    const [selectedAddOns, setSelectedAddOns] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -20,12 +21,10 @@ function Booker() {
     // Service options - will be loaded from API
     const [services, setServices] = useState([]);
     
-    // Available time slots (8am - 8pm, Monday - Friday)
+    // Available time slots (8am - 7pm, Monday - Friday, hourly only)
     const timeSlots = [
-        "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
-        "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
-        "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM",
-        "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"
+        "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
+        "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"
     ];
     
     // Calendar functions
@@ -89,8 +88,19 @@ function Booker() {
         }
     };
     
-    const handleServiceSelect = (service) => {
-        setSelectedService(service);
+    const handleHaircutSelect = (service) => {
+        setSelectedHaircut(service);
+    };
+
+    const handleAddOnToggle = (service) => {
+        setSelectedAddOns(prev => {
+            const isSelected = prev.find(addon => addon.id === service.id);
+            if (isSelected) {
+                return prev.filter(addon => addon.id !== service.id);
+            } else {
+                return [...prev, service];
+            }
+        });
     };
     
     // Load services from API
@@ -119,9 +129,18 @@ function Booker() {
             const response = await fetch(`${API_BASE_URL}/Appointments/available-slots/${date.toISOString().split('T')[0]}`);
             if (response.ok) {
                 const availableSlots = await response.json();
-                // Convert available slots to booked slots format
-                const allSlots = timeSlots;
-                const booked = allSlots.filter(slot => !availableSlots.includes(slot));
+                
+                // Convert API time format (HH:MM:SS) to display format (H:MM AM/PM)
+                const availableDisplaySlots = availableSlots.map(apiTime => {
+                    const [hours, minutes] = apiTime.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+                    return `${displayHour}:${minutes} ${ampm}`;
+                });
+                
+                // Find booked slots (slots not in available list)
+                const booked = timeSlots.filter(slot => !availableDisplaySlots.includes(slot));
                 setBookedSlots(new Set(booked));
             }
         } catch (err) {
@@ -130,7 +149,7 @@ function Booker() {
     };
 
     const handleBookAppointment = async () => {
-        if (selectedService && selectedDate && selectedTime) {
+        if (selectedHaircut && selectedDate && selectedTime) {
             setLoading(true);
             setError(null);
             
@@ -147,14 +166,19 @@ function Booker() {
                 
                 const timeString = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
                 
+                // Create notes with selected services
+                const selectedServices = [selectedHaircut, ...selectedAddOns];
+                const serviceNames = selectedServices.map(s => s.name).join(", ");
+                const totalPrice = selectedServices.reduce((sum, s) => sum + parseFloat(s.price), 0);
+                
                 const appointmentData = {
-                    serviceId: selectedService.id,
+                    serviceId: selectedHaircut.id, // Use haircut as primary service
                     appointmentDate: selectedDate.toISOString().split('T')[0],
                     appointmentTime: timeString,
                     customerName: "John Doe", // In real app, get from form
                     customerPhone: "123-456-7890", // In real app, get from form
                     customerEmail: "john@example.com", // In real app, get from form
-                    notes: "Online booking",
+                    notes: `Services: ${serviceNames}. Total: $${totalPrice.toFixed(2)}`,
                     status: "Confirmed"
                 };
                 
@@ -171,10 +195,12 @@ function Booker() {
                     
                     // Store appointment data for confirmation page
                     localStorage.setItem('appointmentData', JSON.stringify({
-                        service: selectedService,
+                        service: selectedHaircut,
+                        addOns: selectedAddOns,
                         date: selectedDate,
                         time: selectedTime,
-                        appointmentId: createdAppointment.id
+                        appointmentId: createdAppointment.id,
+                        totalPrice: totalPrice
                     }));
                     
                     // Navigate to confirmation page
@@ -222,7 +248,7 @@ function Booker() {
     };
     
     const days = getDaysInMonth(currentMonth);
-    const isBookingComplete = selectedService && selectedDate && selectedTime;
+    const isBookingComplete = selectedHaircut && selectedDate && selectedTime;
     
     return (
         <div className="booking-page">
@@ -240,18 +266,37 @@ function Booker() {
                 <div className="booking-form">
                     {/* Service Selection Sidebar */}
                     <div className="booking-sidebar">
+                        {/* Haircut Selection */}
                         <div className="sidebar-section">
-                            <h3 className="section-title">Select Service</h3>
+                            <h3 className="section-title">Select Haircut (Required)</h3>
                             <div className="service-options">
-                                {services.map(service => (
+                                {services.filter(service => service.name.includes('Haircut')).map(service => (
                                     <div 
                                         key={service.id}
-                                        className={`service-option ${selectedService?.id === service.id ? 'selected' : ''}`}
-                                        onClick={() => handleServiceSelect(service)}
+                                        className={`service-option ${selectedHaircut?.id === service.id ? 'selected' : ''}`}
+                                        onClick={() => handleHaircutSelect(service)}
                                     >
                                         <div className="service-name">{service.name}</div>
                                         <div className="service-price">${service.price}</div>
-                                        <div className="service-duration">{service.durationMinutes} min</div>
+                                        <div className="service-duration">60 min</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Add-ons Selection */}
+                        <div className="sidebar-section">
+                            <h3 className="section-title">Add-ons (Optional)</h3>
+                            <div className="service-options">
+                                {services.filter(service => !service.name.includes('Haircut')).map(service => (
+                                    <div 
+                                        key={service.id}
+                                        className={`service-option ${selectedAddOns.find(addon => addon.id === service.id) ? 'selected' : ''}`}
+                                        onClick={() => handleAddOnToggle(service)}
+                                    >
+                                        <div className="service-name">{service.name}</div>
+                                        <div className="service-price">+${service.price}</div>
+                                        <div className="service-duration">Included in 60 min</div>
                                     </div>
                                 ))}
                             </div>
@@ -301,34 +346,51 @@ function Booker() {
                             })}
                         </div>
                         
-                        {/* Time Slots */}
-                        {selectedDate && (
-                            <div>
-                                <h3 className="section-title">
-                                    Available Times for {formatDate(selectedDate)}
-                                </h3>
-                                <div className="time-slots">
-                                    {timeSlots.map(time => {
-                                        const isBooked = false; // In real app, check against booked times
-                                        const isSelected = selectedTime === time;
-                                        
-                                        let className = 'time-slot';
-                                        if (isBooked) className += ' booked';
-                                        else if (isSelected) className += ' selected';
-                                        
-                                        return (
-                                            <div 
-                                                key={time}
-                                                className={className}
-                                                onClick={() => handleTimeClick(time)}
-                                            >
-                                                {time}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
+                                                 {/* Time Slots */}
+                         {selectedDate && (
+                             <div>
+                                 <h3 className="section-title">
+                                     Available Times for {formatDate(selectedDate)}
+                                 </h3>
+                                 <div className="time-slots">
+                                     {timeSlots.map(time => {
+                                         // Convert time to API format for comparison
+                                         const timeParts = time.split(' ');
+                                         const timeOnly = timeParts[0];
+                                         const period = timeParts[1];
+                                         let [hours, minutes] = timeOnly.split(':');
+                                         hours = parseInt(hours);
+                                         
+                                         if (period === 'PM' && hours !== 12) hours += 12;
+                                         if (period === 'AM' && hours === 12) hours = 0;
+                                         
+                                         const timeString = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
+                                         
+                                         // Check if this time is booked
+                                         const isBooked = bookedSlots.has(time);
+                                         const isSelected = selectedTime === time;
+                                         
+                                         // Only show available time slots
+                                         if (isBooked) {
+                                             return null; // Don't render booked slots
+                                         }
+                                         
+                                         let className = 'time-slot';
+                                         if (isSelected) className += ' selected';
+                                         
+                                         return (
+                                             <div 
+                                                 key={time}
+                                                 className={className}
+                                                 onClick={() => handleTimeClick(time)}
+                                             >
+                                                 {time}
+                                             </div>
+                                         );
+                                     }).filter(Boolean)} {/* Remove null entries */}
+                                 </div>
+                             </div>
+                         )}
                     </div>
                 </div>
                 
@@ -337,10 +399,21 @@ function Booker() {
                     <div className="booking-summary">
                         <h3 className="summary-title">Booking Summary</h3>
                         <div className="summary-details">
-                            <p><strong>Service:</strong> {selectedService.name} - {selectedService.price}</p>
+                            <p><strong>Haircut:</strong> {selectedHaircut.name} - ${selectedHaircut.price}</p>
+                            {selectedAddOns.length > 0 && (
+                                <div>
+                                    <p><strong>Add-ons:</strong></p>
+                                    {selectedAddOns.map(addon => (
+                                        <p key={addon.id} style={{ marginLeft: '20px' }}>
+                                            • {addon.name} - +${addon.price}
+                                        </p>
+                                    ))}
+                                </div>
+                            )}
+                            <p><strong>Total:</strong> ${(selectedAddOns.reduce((sum, addon) => sum + parseFloat(addon.price), 0) + parseFloat(selectedHaircut.price)).toFixed(2)}</p>
                             <p><strong>Date:</strong> {formatDate(selectedDate)}</p>
                             <p><strong>Time:</strong> {formatTime(selectedTime)}</p>
-                            <p><strong>Duration:</strong> {selectedService.duration}</p>
+                            <p><strong>Duration:</strong> 60 minutes</p>
                         </div>
                         <button 
                             className="book-appointment-btn"
