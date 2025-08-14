@@ -348,7 +348,7 @@ function Booker() {
                         
                                                  {/* Time Slots */}
                          {selectedDate && (
-                             <div>
+    <div>
                                  <h3 className="section-title">
                                      Available Times for {formatDate(selectedDate)}
                                  </h3>
@@ -401,7 +401,7 @@ function Booker() {
                         <div className="summary-details">
                             <p><strong>Haircut:</strong> {selectedHaircut.name} - ${selectedHaircut.price}</p>
                             {selectedAddOns.length > 0 && (
-                                <div>
+        <div>
                                     <p><strong>Add-ons:</strong></p>
                                     {selectedAddOns.map(addon => (
                                         <p key={addon.id} style={{ marginLeft: '20px' }}>
@@ -422,9 +422,9 @@ function Booker() {
                         >
                             {loading ? 'Booking...' : 'Confirm Booking'}
                         </button>
-                    </div>
+        </div>
                 )}
-            </div>
+        </div>
         </div>
     );
 }

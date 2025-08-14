@@ -6,21 +6,55 @@ import Booker from './pages/Booker';
 import Confirmation from './pages/Confirmation';
 import Reviews from './pages/Reviews';
 import Services from './pages/Services';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
 
   return (
     <Router>
-      <Header/>
       <Routes>
-        <Route path="/" element={<BarberProfile />} />
-        <Route path="/Services" element={<Services/>} />
-        <Route path="/reviews" element={<Reviews/>} /> 
-        <Route path="/booker" element={<Booker/>} />
-        <Route path="/confirmation" element={<Confirmation/>} />
-        {/* Add more routes as needed */}
+        {/* Admin routes - no header/footer */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        
+        {/* Public routes - with header/footer */}
+        <Route path="/" element={
+          <>
+            <Header/>
+            <BarberProfile />
+            <Footer/>
+          </>
+        } />
+        <Route path="/Services" element={
+          <>
+            <Header/>
+            <Services/>
+            <Footer/>
+          </>
+        } />
+        <Route path="/reviews" element={
+          <>
+            <Header/>
+            <Reviews/>
+            <Footer/>
+          </>
+        } />
+        <Route path="/booker" element={
+          <>
+            <Header/>
+            <Booker/>
+            <Footer/>
+          </>
+        } />
+        <Route path="/confirmation" element={
+          <>
+            <Header/>
+            <Confirmation/>
+            <Footer/>
+          </>
+        } />
       </Routes>
-      <Footer/>
     </Router>
   );
 }
