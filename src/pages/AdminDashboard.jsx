@@ -13,6 +13,12 @@ function AdminDashboard() {
         newTime: ""
     });
     
+    // Available time slots (8am - 7pm, hourly only)
+    const timeSlots = [
+        "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
+        "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"
+    ];
+    
     const navigate = useNavigate();
     const API_BASE_URL = 'https://localhost:7074/api';
 
@@ -110,6 +116,18 @@ function AdminDashboard() {
         }
 
         try {
+            // Convert time format for API (e.g., "2:00 PM" to "14:00:00")
+            const timeParts = rescheduleData.newTime.split(' ');
+            const time = timeParts[0];
+            const period = timeParts[1];
+            let [hours, minutes] = time.split(':');
+            hours = parseInt(hours);
+            
+            if (period === 'PM' && hours !== 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
+
             const token = localStorage.getItem('adminToken');
             const response = await fetch(`${API_BASE_URL}/Admin/appointments/${selectedAppointment.id}/reschedule`, {
                 method: 'PUT',
@@ -119,7 +137,7 @@ function AdminDashboard() {
                 },
                 body: JSON.stringify({
                     newDate: rescheduleData.newDate,
-                    newTime: rescheduleData.newTime
+                    newTime: timeString
                 })
             });
 
@@ -345,14 +363,18 @@ function AdminDashboard() {
                         
                         <div className="form-group">
                             <label>New Time:</label>
-                            <input
-                                type="time"
+                            <select
                                 value={rescheduleData.newTime}
                                 onChange={(e) => setRescheduleData(prev => ({
                                     ...prev,
-                                    newTime: e.target.value + ':00'
+                                    newTime: e.target.value
                                 }))}
-                            />
+                            >
+                                <option value="">Select Time</option>
+                                {timeSlots.map(slot => (
+                                    <option key={slot} value={slot}>{slot}</option>
+                                ))}
+                            </select>
                         </div>
                         
                         <div className="modal-actions">

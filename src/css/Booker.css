@@ -99,7 +99,8 @@
 
 .service-option.selected {
   border-color: #ffd700;
-  background: rgba(255, 215, 0, 0.15);
+  background: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
 .service-name {
@@ -110,6 +111,7 @@
 
 .service-price {
   color: #ffd700;
+  font-weight: bold;
   font-size: 1.1rem;
 }
 
@@ -117,6 +119,67 @@
   color: #cccccc;
   font-size: 0.9rem;
   font-style: italic;
+}
+
+/* Customer Information Form Styles */
+.customer-info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #ffd700 !important;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-group input {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ffd700;
+  border-radius: 6px;
+  padding: 0.8rem;
+  color: #1a1a1a;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  font-weight: normal;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ffd700;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  color: #1a1a1a;
+}
+
+.form-group input::placeholder {
+  color: #666666;
+  opacity: 1;
+  font-weight: normal;
+}
+
+.form-group input:invalid {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  color: #1a1a1a;
+}
+
+.form-group input:valid {
+  border-color: #ffd700;
+  background: #ffffff;
+  color: #1a1a1a;
 }
 
 .calendar-section {
@@ -252,25 +315,61 @@
 }
 
 .booking-summary {
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
-  margin: 2rem 0;
-  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
 }
 
 .summary-title {
-  color: #ffd700;
-  font-weight: bold;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
 .summary-details {
-  color: #ffffff;
-  line-height: 1.8;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
   margin-bottom: 2rem;
+}
+
+.customer-summary,
+.service-summary,
+.appointment-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.customer-summary h4,
+.service-summary h4,
+.appointment-summary h4 {
+  color: #ffd700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.customer-summary p,
+.service-summary p,
+.appointment-summary p {
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.customer-summary strong,
+.service-summary strong,
+.appointment-summary strong {
+  color: #ffd700;
+  font-weight: bold;
 }
 
 .book-appointment-btn {
@@ -303,28 +402,79 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .booking-page {
+  .booking-form {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .booking-sidebar {
+    order: 2;
+  }
+  
+  .calendar-section {
+    order: 1;
+  }
+  
+  .summary-details {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .customer-summary,
+  .service-summary,
+  .appointment-summary {
     padding: 1rem;
   }
   
   .booking-container {
-    padding: 2rem;
+    padding: 1.5rem;
+    margin: 1rem;
   }
   
   .booking-title {
     font-size: 2.5rem;
   }
   
-  .booking-form {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
   }
   
-  .calendar-grid {
-    gap: 0.3rem;
+  .calendar-day {
+    padding: 0.5rem;
+    font-size: 0.9rem;
   }
   
   .time-slots {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .time-slot {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-page {
+    padding: 1rem;
+  }
+  
+  .booking-container {
+    padding: 1rem;
+  }
+  
+  .booking-title {
+    font-size: 2rem;
+  }
+  
+  .time-slots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-group input {
+    padding: 0.6rem;
+    font-size: 0.9rem;
   }
 }

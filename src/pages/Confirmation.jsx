@@ -50,12 +50,32 @@ function Confirmation(){
                 <div className="confirmation-details">
                     <h3 className="details-title">Appointment Details</h3>
                     <div className="detail-item">
-                        <span className="detail-label">Barber:</span>
-                        <span className="detail-value">Clean Cuts</span>
+                        <span className="detail-label">Customer Name:</span>
+                        <span className="detail-value">{appointmentData.customerInfo?.firstName} {appointmentData.customerInfo?.lastName}</span>
+                    </div>
+                    <div className="detail-item">
+                        <span className="detail-label">Email:</span>
+                        <span className="detail-value">{appointmentData.customerInfo?.email}</span>
+                    </div>
+                    <div className="detail-item">
+                        <span className="detail-label">Phone:</span>
+                        <span className="detail-value">{appointmentData.customerInfo?.phone}</span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">Service:</span>
-                        <span className="detail-value">{appointmentData.service.name} - {appointmentData.service.price}</span>
+                        <span className="detail-value">{appointmentData.service.name} - ${appointmentData.service.price}</span>
+                    </div>
+                    {appointmentData.addOns && appointmentData.addOns.length > 0 && (
+                        <div className="detail-item">
+                            <span className="detail-label">Add-ons:</span>
+                            <span className="detail-value">
+                                {appointmentData.addOns.map(addon => addon.name).join(', ')} - +${appointmentData.addOns.reduce((sum, addon) => sum + parseFloat(addon.price), 0).toFixed(2)}
+                            </span>
+                        </div>
+                    )}
+                    <div className="detail-item">
+                        <span className="detail-label">Total:</span>
+                        <span className="detail-value">${appointmentData.totalPrice.toFixed(2)}</span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">Date:</span>
@@ -68,6 +88,10 @@ function Confirmation(){
                     <div className="detail-item">
                         <span className="detail-label">Duration:</span>
                         <span className="detail-value">60 minutes</span>
+                    </div>
+                    <div className="detail-item">
+                        <span className="detail-label">Appointment ID:</span>
+                        <span className="detail-value">#{appointmentData.appointmentId}</span>
                     </div>
                 </div>
                 

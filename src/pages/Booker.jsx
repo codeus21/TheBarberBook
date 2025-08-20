@@ -15,6 +15,14 @@ function Booker() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     
+    // Customer information state
+    const [customerInfo, setCustomerInfo] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: ''
+    });
+    
     // API base URL - update this to match your C# API URL
     const API_BASE_URL = 'https://localhost:7074/api';
     
@@ -102,6 +110,22 @@ function Booker() {
             }
         });
     };
+
+    // Handle customer information changes
+    const handleCustomerInfoChange = (field, value) => {
+        setCustomerInfo(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
+    // Validate customer information
+    const isCustomerInfoValid = () => {
+        return customerInfo.firstName.trim() !== '' && 
+               customerInfo.lastName.trim() !== '' && 
+               customerInfo.email.trim() !== '' && 
+               customerInfo.phone.trim() !== '';
+    };
     
     // Load services from API
     useEffect(() => {
@@ -149,7 +173,7 @@ function Booker() {
     };
 
     const handleBookAppointment = async () => {
-        if (selectedHaircut && selectedDate && selectedTime) {
+        if (selectedHaircut && selectedDate && selectedTime && isCustomerInfoValid()) {
             setLoading(true);
             setError(null);
             
@@ -175,9 +199,9 @@ function Booker() {
                     serviceId: selectedHaircut.id, // Use haircut as primary service
                     appointmentDate: selectedDate.toISOString().split('T')[0],
                     appointmentTime: timeString,
-                    customerName: "John Doe", // In real app, get from form
-                    customerPhone: "123-456-7890", // In real app, get from form
-                    customerEmail: "john@example.com", // In real app, get from form
+                    customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
+                    customerPhone: customerInfo.phone,
+                    customerEmail: customerInfo.email,
                     notes: `Services: ${serviceNames}. Total: $${totalPrice.toFixed(2)}`,
                     status: "Confirmed"
                 };
@@ -200,7 +224,8 @@ function Booker() {
                         date: selectedDate,
                         time: selectedTime,
                         appointmentId: createdAppointment.id,
-                        totalPrice: totalPrice
+                        totalPrice: totalPrice,
+                        customerInfo: customerInfo
                     }));
                     
                     // Navigate to confirmation page
@@ -248,7 +273,7 @@ function Booker() {
     };
     
     const days = getDaysInMonth(currentMonth);
-    const isBookingComplete = selectedHaircut && selectedDate && selectedTime;
+    const isBookingComplete = selectedHaircut && selectedDate && selectedTime && isCustomerInfoValid();
     
     return (
         <div className="booking-page">
@@ -296,9 +321,60 @@ function Booker() {
                                     >
                                         <div className="service-name">{service.name}</div>
                                         <div className="service-price">+${service.price}</div>
-                                        <div className="service-duration">Included in 60 min</div>
+                                        <div className="service-duration"></div>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+
+                        {/* Customer Information Section */}
+                        <div className="sidebar-section">
+                            <h3 className="section-title">Your Information</h3>
+                            <div className="customer-info-form">
+                                <div className="form-group">
+                                    <label htmlFor="firstName">First Name *</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        value={customerInfo.firstName}
+                                        onChange={(e) => handleCustomerInfoChange('firstName', e.target.value)}
+                                        placeholder="Enter your first name"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="lastName">Last Name *</label>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        value={customerInfo.lastName}
+                                        onChange={(e) => handleCustomerInfoChange('lastName', e.target.value)}
+                                        placeholder="Enter your last name"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email *</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value={customerInfo.email}
+                                        onChange={(e) => handleCustomerInfoChange('email', e.target.value)}
+                                        placeholder="Enter your email"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="phone">Phone Number *</label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        value={customerInfo.phone}
+                                        onChange={(e) => handleCustomerInfoChange('phone', e.target.value)}
+                                        placeholder="Enter your phone number"
+                                        required
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -399,21 +475,33 @@ function Booker() {
                     <div className="booking-summary">
                         <h3 className="summary-title">Booking Summary</h3>
                         <div className="summary-details">
-                            <p><strong>Haircut:</strong> {selectedHaircut.name} - ${selectedHaircut.price}</p>
-                            {selectedAddOns.length > 0 && (
-        <div>
-                                    <p><strong>Add-ons:</strong></p>
-                                    {selectedAddOns.map(addon => (
-                                        <p key={addon.id} style={{ marginLeft: '20px' }}>
-                                            • {addon.name} - +${addon.price}
-                                        </p>
-                                    ))}
-                                </div>
-                            )}
-                            <p><strong>Total:</strong> ${(selectedAddOns.reduce((sum, addon) => sum + parseFloat(addon.price), 0) + parseFloat(selectedHaircut.price)).toFixed(2)}</p>
-                            <p><strong>Date:</strong> {formatDate(selectedDate)}</p>
-                            <p><strong>Time:</strong> {formatTime(selectedTime)}</p>
-                            <p><strong>Duration:</strong> 60 minutes</p>
+                            <div className="customer-summary">
+                                <h4>Customer Information</h4>
+                                <p><strong>Name:</strong> {customerInfo.firstName} {customerInfo.lastName}</p>
+                                <p><strong>Email:</strong> {customerInfo.email}</p>
+                                <p><strong>Phone:</strong> {customerInfo.phone}</p>
+                            </div>
+                            <div className="service-summary">
+                                <h4>Service Details</h4>
+                                <p><strong>Haircut:</strong> {selectedHaircut.name} - ${selectedHaircut.price}</p>
+                                {selectedAddOns.length > 0 && (
+                                    <div>
+                                        <p><strong>Add-ons:</strong></p>
+                                        {selectedAddOns.map(addon => (
+                                            <p key={addon.id} style={{ marginLeft: '20px' }}>
+                                                • {addon.name} - +${addon.price}
+                                            </p>
+                                        ))}
+                                    </div>
+                                )}
+                                <p><strong>Total:</strong> ${(selectedAddOns.reduce((sum, addon) => sum + parseFloat(addon.price), 0) + parseFloat(selectedHaircut.price)).toFixed(2)}</p>
+                            </div>
+                            <div className="appointment-summary">
+                                <h4>Appointment Details</h4>
+                                <p><strong>Date:</strong> {formatDate(selectedDate)}</p>
+                                <p><strong>Time:</strong> {formatTime(selectedTime)}</p>
+                                <p><strong>Duration:</strong> 60 minutes</p>
+                            </div>
                         </div>
                         <button 
                             className="book-appointment-btn"
@@ -422,7 +510,7 @@ function Booker() {
                         >
                             {loading ? 'Booking...' : 'Confirm Booking'}
                         </button>
-        </div>
+                    </div>
                 )}
         </div>
         </div>

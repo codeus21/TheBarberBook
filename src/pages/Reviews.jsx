@@ -11,7 +11,7 @@ function Reviews() {
                 </div>
                 
                 <div className="welcome-message">
-                    Welcome, Guest
+                    We strive to have happy returning customers.
                 </div>
                 
                 <div className="reviews-grid">
