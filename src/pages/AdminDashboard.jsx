@@ -20,7 +20,9 @@ function AdminDashboard() {
     ];
     
     const navigate = useNavigate();
-    const API_BASE_URL = 'https://localhost:7074/api';
+    const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://barbershopapi-production-a935.up.railway.app/api'
+    : 'https://localhost:7074/api';
 
     useEffect(() => {
         const token = localStorage.getItem('adminToken');

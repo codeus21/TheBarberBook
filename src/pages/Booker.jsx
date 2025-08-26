@@ -23,8 +23,10 @@ function Booker() {
         phone: ''
     });
     
-    // API base URL - update this to match your C# API URL
-    const API_BASE_URL = 'https://localhost:7074/api';
+    // API base URL - update this to match your deployed C# API URL
+    const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? 'https://barbershopapi-production-a935.up.railway.app/api'
+        : 'https://localhost:7074/api';
     
     // Service options - will be loaded from API
     const [services, setServices] = useState([]);

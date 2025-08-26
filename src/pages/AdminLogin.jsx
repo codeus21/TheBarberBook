@@ -9,7 +9,9 @@ function AdminLogin() {
     const [error, setError] = useState("");
     
     const navigate = useNavigate();
-    const API_BASE_URL = 'https://localhost:7074/api';
+    const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? 'https://barbershopapi-production-a935.up.railway.app/api'  // Replace with your actual Railway backend URL
+        : 'https://localhost:7074/api';
 
     const handleLogin = async (e) => {
         e.preventDefault();
