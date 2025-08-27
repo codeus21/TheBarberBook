@@ -23,10 +23,8 @@ function Booker() {
         phone: ''
     });
     
-    // API base URL - update this to match your deployed C# API URL
-    const API_BASE_URL = process.env.NODE_ENV === 'production' 
-        ? 'https://barbershopapi-production-a935.up.railway.app/api'
-        : 'https://localhost:7074/api';
+    // API base URL - connect to Railway backend for both local and production
+    const API_BASE_URL = 'https://barbershopapi-production-a935.up.railway.app/api';
     
     // Service options - will be loaded from API
     const [services, setServices] = useState([]);

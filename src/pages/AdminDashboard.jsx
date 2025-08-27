@@ -20,9 +20,8 @@ function AdminDashboard() {
     ];
     
     const navigate = useNavigate();
-    const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://barbershopapi-production-a935.up.railway.app/api'
-    : 'https://localhost:7074/api';
+    // API base URL - connect to Railway backend for both local and production
+    const API_BASE_URL = 'https://barbershopapi-production-a935.up.railway.app/api';
 
     useEffect(() => {
         const token = localStorage.getItem('adminToken');
