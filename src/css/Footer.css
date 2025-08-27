@@ -59,34 +59,7 @@
   color: #ffd700;
 }
 
-.footer-social {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
 
-.social-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 215, 0, 0.1);
-  border: 2px solid #ffd700;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffd700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 1.2rem;
-}
-
-.social-icon:hover {
-  background: #ffd700;
-  color: #1a1a1a;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-}
 
 .footer-bottom {
   text-align: center;
@@ -122,15 +95,5 @@
   
   .footer-section {
     padding: 0.5rem;
-  }
-  
-  .footer-social {
-    gap: 0.8rem;
-  }
-  
-  .social-icon {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
   }
 }

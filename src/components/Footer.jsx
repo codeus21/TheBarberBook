@@ -23,11 +23,6 @@ function Footer() {
                     <h3 className="footer-title">Hours</h3>
                     <p className="footer-text">Monday - Friday: 8am - 8pm</p>
                     <p className="footer-text">Saturday - Sunday: Closed</p>
-                    <div className="footer-social">
-                        <a href="#" className="social-icon">📱</a>
-                        <a href="#" className="social-icon">📘</a>
-                        <a href="#" className="social-icon">📷</a>
-                    </div>
                 </div>
             </div>
             
