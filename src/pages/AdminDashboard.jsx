@@ -269,7 +269,6 @@ function AdminDashboard() {
                     <div className="header-actions">
                         <button onClick={loadAppointments} className="refresh-btn">Refresh</button>
                         <button onClick={handleCleanupCompleted} className="cleanup-btn">Mark Yesterday Complete</button>
-                        <button onClick={handleClearPastAppointments} className="clear-past-btn">Clear Past Appointments</button>
                     </div>
                 </div>
 
@@ -335,7 +334,10 @@ function AdminDashboard() {
                             {/* Past Appointments */}
                             {appointments.filter(a => a.status !== 'Confirmed').length > 0 && (
                                 <div className="appointments-section">
-                                    <h3 className="section-header">Past Appointments</h3>
+                                    <div className="section-header-with-action">
+                                        <h3 className="section-header">Past Appointments</h3>
+                                        <button onClick={handleClearPastAppointments} className="clear-past-btn">Clear Past Appointments</button>
+                                    </div>
                                     <div className="section-appointments">
                                         {appointments.filter(a => a.status !== 'Confirmed').map(appointment => (
                                             <div key={appointment.id} className={`appointment-card ${appointment.status.toLowerCase()}`}>
