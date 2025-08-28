@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/AdminLogin.css';
+import API_BASE_URL from '../config/api.js';
 
 function AdminLogin() {
     const [username, setUsername] = useState("");
@@ -9,8 +10,6 @@ function AdminLogin() {
     const [error, setError] = useState("");
     
     const navigate = useNavigate();
-    // API base URL - connect to Railway backend for both local and production
-    const API_BASE_URL = 'https://barbershopapi-production-a935.up.railway.app/api';
 
     const handleLogin = async (e) => {
         e.preventDefault();

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../css/Booker.css'
+import API_BASE_URL from '../config/api.js';
 
 function Booker() {
     const navigate = useNavigate();
@@ -22,9 +23,6 @@ function Booker() {
         email: '',
         phone: ''
     });
-    
-    // API base URL - connect to Railway backend for both local and production
-    const API_BASE_URL = 'https://barbershopapi-production-a935.up.railway.app/api';
     
     // Service options - will be loaded from API
     const [services, setServices] = useState([]);

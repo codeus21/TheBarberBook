@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/AdminDashboard.css';
+import API_BASE_URL from '../config/api.js';
 
 function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
@@ -20,8 +21,6 @@ function AdminDashboard() {
     ];
     
     const navigate = useNavigate();
-    // API base URL - connect to Railway backend for both local and production
-    const API_BASE_URL = 'https://barbershopapi-production-a935.up.railway.app/api';
 
     useEffect(() => {
         const token = localStorage.getItem('adminToken');
