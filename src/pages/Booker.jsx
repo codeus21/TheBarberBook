@@ -71,15 +71,42 @@ function Booker() {
     const isDateAvailable = (date) => {
         const day = date.getDay();
         const today = new Date();
+        const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         const twoWeeksFromNow = new Date(today.getTime() + (14 * 24 * 60 * 60 * 1000));
         
         // Only Monday-Friday (1-5), not in the past, and within 2 weeks
-        return day >= 1 && day <= 5 && date >= today && date <= twoWeeksFromNow;
+        return day >= 1 && day <= 5 && date >= todayDateOnly && date <= twoWeeksFromNow;
     };
     
     const isDateBooked = (date) => {
         const dateString = date.toDateString();
         return bookedSlots.has(dateString);
+    };
+
+    // Check if a time slot is in the past for today
+    const isTimeSlotInPast = (timeSlot) => {
+        const today = new Date();
+        
+        // Only check for today
+        if (!selectedDate || selectedDate.toDateString() !== today.toDateString()) {
+            return false;
+        }
+        
+        // Convert time slot to 24-hour format for comparison
+        const timeParts = timeSlot.split(' ');
+        const time = timeParts[0];
+        const period = timeParts[1];
+        let [hours, minutes] = time.split(':');
+        hours = parseInt(hours);
+        
+        if (period === 'PM' && hours !== 12) hours += 12;
+        if (period === 'AM' && hours === 12) hours = 0;
+        
+        // Create a date object for this time slot today
+        const slotTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, parseInt(minutes));
+        
+        // Check if this time has already passed
+        return slotTime <= today;
     };
     
     const handleDateClick = (date) => {
@@ -424,7 +451,7 @@ function Booker() {
                         
                                                  {/* Time Slots */}
                          {selectedDate && (
-    <div>
+                                <div>
                                  <h3 className="section-title">
                                      Available Times for {formatDate(selectedDate)}
                                  </h3>
@@ -442,13 +469,14 @@ function Booker() {
                                          
                                          const timeString = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
                                          
-                                         // Check if this time is booked
+                                         // Check if this time is booked or in the past
                                          const isBooked = bookedSlots.has(time);
+                                         const isPast = isTimeSlotInPast(time);
                                          const isSelected = selectedTime === time;
                                          
-                                         // Only show available time slots
-                                         if (isBooked) {
-                                             return null; // Don't render booked slots
+                                         // Only show available time slots that aren't in the past
+                                         if (isBooked || isPast) {
+                                             return null; // Don't render booked or past slots
                                          }
                                          
                                          let className = 'time-slot';
