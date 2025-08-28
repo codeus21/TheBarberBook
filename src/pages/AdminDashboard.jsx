@@ -183,6 +183,33 @@ function AdminDashboard() {
         }
     };
 
+    const handleClearPastAppointments = async () => {
+        if (!window.confirm('Are you sure you want to permanently delete all past appointments? This action cannot be undone.')) {
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('adminToken');
+            const response = await fetch(`${API_BASE_URL}/Admin/clear-past-appointments`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message);
+                loadAppointments(); // Refresh the list
+            } else {
+                setError('Failed to clear past appointments');
+            }
+        } catch (err) {
+            setError('Error clearing past appointments');
+            console.error('Error:', err);
+        }
+    };
+
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('en-US', {
             weekday: 'long',
@@ -242,6 +269,7 @@ function AdminDashboard() {
                     <div className="header-actions">
                         <button onClick={loadAppointments} className="refresh-btn">Refresh</button>
                         <button onClick={handleCleanupCompleted} className="cleanup-btn">Mark Yesterday Complete</button>
+                        <button onClick={handleClearPastAppointments} className="clear-past-btn">Clear Past Appointments</button>
                     </div>
                 </div>
 
