@@ -122,6 +122,13 @@
   margin-top: 1rem;
 }
 
+.service-duration {
+  font-size: 0.9rem;
+  color: #cccccc;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
 .book-service-btn {
   background: linear-gradient(45deg, #ffd700, #ffed4e);
   color: #1a1a1a;

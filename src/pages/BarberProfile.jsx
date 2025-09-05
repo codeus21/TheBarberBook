@@ -1,54 +1,112 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import '../css/BarberProfile.css'
+import '../css/BarberProfile.css';
+import API_BASE_URL from '../config/api.js';
 
 function BarberProfile() {
+    const [barberShop, setBarberShop] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Load barber shop info from API
+    useEffect(() => {
+        const loadBarberShop = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/BarberShop/current`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setBarberShop(data);
+                } else {
+                    setError('Failed to load barber shop information');
+                }
+            } catch (err) {
+                setError('Error loading barber shop information');
+                console.error('Error loading barber shop:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        
+        loadBarberShop();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="barber-profile">
+                <div className="barber-container">
+                    <div className="barber-header">
+                        <h1 className="barber-title">Loading...</h1>
+                        <p className="barber-subtitle">Loading barber shop information...</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="barber-profile">
+                <div className="barber-container">
+                    <div className="barber-header">
+                        <h1 className="barber-title">Error</h1>
+                        <p className="barber-subtitle" style={{ color: 'red' }}>{error}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="barber-profile">
             <div className="barber-container">
                 <div className="barber-header">
-                    <h1 className="barber-title">Clean Cuts</h1>
+                    <h1 className="barber-title">{barberShop?.name || 'Barber Shop'}</h1>
                     <p className="barber-subtitle">Professional Barber Services</p>
                 </div>
                 
                 <div className="barber-image-section">
                     <div className="barber-image-placeholder"></div>
-                    <p>Get a clean cut with me at Clean Cuts! Book now!</p>
+                    <p>Get a professional cut at {barberShop?.name || 'our barber shop'}! Book now!</p>
                 </div>
                 
                 <div className="barber-info">
                     <div className="info-item">
                         <span className="info-label">Name:</span>
-                        <span className="info-value">John Doe</span>
+                        <span className="info-value">{barberShop?.name || 'Barber Shop'}</span>
                     </div>
                     
                     <div className="info-item">
-                        <span className="info-label">About Me:</span>
-                        <span className="info-value">Self-taught friendly barber with 5 years experience.
-                            Always open to new clients. Come give me a try!
+                        <span className="info-label">About Us:</span>
+                        <span className="info-value">
+                            Professional barber services with years of experience.
+                            We provide quality cuts and excellent customer service.
                         </span>
                     </div>
                     
-                    <div className="info-item">
-                        <span className="info-label">Address:</span>
-                        <span className="info-value">123 Main street</span>
-                    </div>
+                    {barberShop?.businessAddress && (
+                        <div className="info-item">
+                            <span className="info-label">Address:</span>
+                            <span className="info-value">{barberShop.businessAddress}</span>
+                        </div>
+                    )}
                     
-                    <div className="info-item">
-                        <span className="info-label">Phone:</span>
-                        <span className="info-value">123-456-7890</span>
-                    </div>
+                    {barberShop?.businessPhone && (
+                        <div className="info-item">
+                            <span className="info-label">Phone:</span>
+                            <span className="info-value">{barberShop.businessPhone}</span>
+                        </div>
+                    )}
                     
                     <div className="info-item">
                         <span className="info-label">Email:</span>
-                        <span className="info-value">example@cleancuts.com</span>
+                        <span className="info-value">{barberShop?.adminEmail || 'contact@barbershop.com'}</span>
                     </div>
                 </div>
                 
                 <div className="barber-hours">
                     <div className="hours-title">Business Hours</div>
                     <div className="hours-text">
-                        Monday - Friday: 8am - 8pm<br/>
-                        Saturday and Sunday: Closed
+                        {barberShop?.businessHours || 'Monday - Friday: 8am - 8pm\nSaturday and Sunday: Closed'}
                     </div>
                 </div>
                 
