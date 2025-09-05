@@ -4,8 +4,8 @@ import '../css/AdminLogin.css';
 import API_BASE_URL from '../config/api.js';
 
 function AdminLogin() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("admin");
+    const [password, setPassword] = useState("admin123");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     
