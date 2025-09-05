@@ -28,7 +28,7 @@ function Footer() {
             
             <div className="footer-bottom">
                 <div className="footer-divider"></div>
-                <p className="footer-copyright">© 2024 The Barber Book. All rights reserved.</p>
+                <p className="footer-copyright">© 2025 The Barber Book. All rights reserved.</p>
             </div>
         </footer>
     )
