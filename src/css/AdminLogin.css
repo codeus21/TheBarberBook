@@ -74,6 +74,11 @@
     cursor: not-allowed;
 }
 
+.form-group input::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
 .admin-login-btn {
     background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
     color: #1a1a1a;

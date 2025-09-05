@@ -64,6 +64,7 @@ function AdminLogin() {
                             id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            placeholder="admin"
                             required
                             disabled={loading}
                         />
@@ -76,6 +77,7 @@ function AdminLogin() {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            placeholder="admin123"
                             required
                             disabled={loading}
                         />
