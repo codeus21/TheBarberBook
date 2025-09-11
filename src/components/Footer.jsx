@@ -1,6 +1,15 @@
+import { Link } from 'react-router-dom';
+import { getTenantFromUrl } from '../utils/apiHelper.js';
 import '../css/Footer.css'
 
 function Footer() {
+    const tenant = getTenantFromUrl();
+    
+    // Helper function to create links with tenant parameter
+    const createLink = (path) => {
+        return `${path}?tenant=${tenant}`;
+    };
+
     return(
         <footer className="footer">
             <div className="footer-container">
@@ -13,10 +22,10 @@ function Footer() {
                 
                 <div className="footer-section">
                     <h3 className="footer-title">Services</h3>
-                    <a href="#" className="footer-link">Haircuts</a>
-                    <a href="#" className="footer-link">Beard Trims</a>
-                    <a href="#" className="footer-link">Shaves</a>
-                    <a href="#" className="footer-link">Styling</a>
+                    <Link to={createLink("/services")} className="footer-link">Haircuts</Link>
+                    <Link to={createLink("/services")} className="footer-link">Beard Trims</Link>
+                    <Link to={createLink("/services")} className="footer-link">Shaves</Link>
+                    <Link to={createLink("/services")} className="footer-link">Styling</Link>
                 </div>
                 
                 <div className="footer-section">

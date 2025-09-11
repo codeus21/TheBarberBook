@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../css/Booker.css'
-import API_BASE_URL from '../config/api.js';
+import { fetchWithTenant } from '../utils/apiHelper.js';
 
 function Booker() {
     const navigate = useNavigate();
@@ -156,7 +156,7 @@ function Booker() {
     useEffect(() => {
         const loadServices = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/Services`);
+                const response = await fetchWithTenant('/Services');
                 if (response.ok) {
                     const data = await response.json();
                     setServices(data);
@@ -175,7 +175,7 @@ function Booker() {
     // Load booked slots for a specific date
     const loadBookedSlots = async (date) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/Appointments/available-slots/${date.toISOString().split('T')[0]}`);
+            const response = await fetchWithTenant(`/Appointments/available-slots/${date.toISOString().split('T')[0]}`);
             if (response.ok) {
                 const availableSlots = await response.json();
                 
@@ -231,7 +231,7 @@ function Booker() {
                     status: "Confirmed"
                 };
                 
-                const response = await fetch(`${API_BASE_URL}/Appointments`, {
+                const response = await fetchWithTenant('/Appointments', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

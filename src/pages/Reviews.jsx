@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getTenantFromUrl } from '../utils/apiHelper.js';
 import '../css/Reviews.css'
 
 function Reviews() {
@@ -118,7 +119,7 @@ function Reviews() {
                         Ready to join our satisfied customers? Book your appointment today and 
                         experience the professional grooming services that our clients love.
                     </p>
-                    <Link to="/booker" className="book-now-btn">Book Now</Link>
+                    <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-now-btn">Book Now</Link>
                 </div>
             </div>
         </div>

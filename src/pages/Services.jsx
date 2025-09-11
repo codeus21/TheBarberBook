@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import '../css/Services.css';
-import API_BASE_URL from '../config/api.js';
+import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 
 function Services() {
     const [services, setServices] = useState([]);
@@ -12,7 +12,7 @@ function Services() {
     useEffect(() => {
         const loadServices = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/Services`);
+                const response = await fetchWithTenant('/Services');
                 if (response.ok) {
                     const data = await response.json();
                     setServices(data);
@@ -84,7 +84,7 @@ function Services() {
                             </p>
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
-                            <Link to="/booker" className="book-service-btn">Book Now</Link>
+                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-service-btn">Book Now</Link>
                         </div>
                     ))}
                 </div>

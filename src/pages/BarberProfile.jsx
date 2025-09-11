@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import '../css/BarberProfile.css';
-import API_BASE_URL from '../config/api.js';
+import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 
 function BarberProfile() {
     const [barberShop, setBarberShop] = useState(null);
@@ -13,7 +13,7 @@ function BarberProfile() {
     useEffect(() => {
         const loadBarberShop = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/BarberShop/current`);
+                const response = await fetchWithTenant('/BarberShop/current');
                 if (response.ok) {
                     const data = await response.json();
                     setBarberShop(data);
@@ -129,7 +129,7 @@ function BarberProfile() {
                 </div>
                 
                 <div className="book-button-container">
-                    <Link to="/booker" className="book-button">Book Now</Link>
+                    <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-button">Book Now</Link>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/AdminDashboard.css';
-import API_BASE_URL from '../config/api.js';
+import { fetchWithTenant } from '../utils/apiHelper.js';
 
 function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
@@ -34,7 +34,7 @@ function AdminDashboard() {
     const loadAppointments = async () => {
         try {
             const token = localStorage.getItem('adminToken');
-            const response = await fetch(`${API_BASE_URL}/Admin/appointments`, {
+            const response = await fetchWithTenant('/Admin/appointments', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -92,7 +92,7 @@ function AdminDashboard() {
 
         try {
             const token = localStorage.getItem('adminToken');
-            const response = await fetch(`${API_BASE_URL}/Admin/appointments/${id}/cancel`, {
+            const response = await fetchWithTenant(`/Admin/appointments/${id}/cancel`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -129,7 +129,7 @@ function AdminDashboard() {
             const timeString = `${hours.toString().padStart(2, '0')}:${minutes}:00`;
 
             const token = localStorage.getItem('adminToken');
-            const response = await fetch(`${API_BASE_URL}/Admin/appointments/${selectedAppointment.id}/reschedule`, {
+            const response = await fetchWithTenant(`/Admin/appointments/${selectedAppointment.id}/reschedule`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -163,7 +163,7 @@ function AdminDashboard() {
 
         try {
             const token = localStorage.getItem('adminToken');
-            const response = await fetch(`${API_BASE_URL}/Admin/cleanup-completed`, {
+            const response = await fetchWithTenant('/Admin/cleanup-completed', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -190,7 +190,7 @@ function AdminDashboard() {
 
         try {
             const token = localStorage.getItem('adminToken');
-            const response = await fetch(`${API_BASE_URL}/Admin/clear-past-appointments`, {
+            const response = await fetchWithTenant('/Admin/clear-past-appointments', {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

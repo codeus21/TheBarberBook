@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getTenantFromUrl } from '../utils/apiHelper.js';
 import '../css/Confirmation.css';
 
 function Confirmation(){
@@ -108,7 +109,7 @@ function Confirmation(){
                 </div>
                 
                 <div className="done-button-container">
-                    <Link to="/" className="done-button">Done</Link>
+                    <Link to={`/?tenant=${getTenantFromUrl()}`} className="done-button">Done</Link>
                 </div>
             </div>
         </div>
