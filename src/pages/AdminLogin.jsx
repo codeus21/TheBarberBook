@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/AdminLogin.css';
-import { fetchWithTenant } from '../utils/apiHelper.js';
+import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 
 function AdminLogin() {
     const [username, setUsername] = useState("admin");
@@ -29,7 +29,10 @@ function AdminLogin() {
                 const data = await response.json();
                 localStorage.setItem('adminToken', data.token);
                 localStorage.setItem('adminName', data.name);
-                navigate('/admin/dashboard');
+                
+                // Preserve tenant parameter in redirect
+                const tenant = getTenantFromUrl();
+                navigate(`/admin/dashboard?tenant=${tenant}`);
             } else {
                 const errorData = await response.text();
                 setError(errorData || 'Login failed');

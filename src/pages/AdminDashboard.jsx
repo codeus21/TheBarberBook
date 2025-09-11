@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/AdminDashboard.css';
-import { fetchWithTenant } from '../utils/apiHelper.js';
+import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 
 function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
@@ -82,7 +82,10 @@ function AdminDashboard() {
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminName');
-        navigate('/admin/login');
+        
+        // Preserve tenant parameter in logout redirect
+        const tenant = getTenantFromUrl();
+        navigate(`/admin/login?tenant=${tenant}`);
     };
 
     const handleCancelAppointment = async (id) => {
@@ -248,7 +251,12 @@ function AdminDashboard() {
         <div className="admin-dashboard">
             <div className="admin-header">
                 <div className="admin-header-content">
-                    <h1 className="admin-title">Barber Admin Dashboard</h1>
+                    <div className="admin-title-section">
+                        <h1 className="admin-title">Barber Admin Dashboard</h1>
+                        <div className="tenant-indicator">
+                            Managing: <strong>{getTenantFromUrl() === 'elite' ? 'Elite Cuts' : 'Clean Cuts'}</strong>
+                        </div>
+                    </div>
                     <div className="admin-user">
                         <span>Welcome, {localStorage.getItem('adminName')}</span>
                         <button onClick={handleLogout} className="logout-btn">Logout</button>
