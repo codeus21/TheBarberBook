@@ -7,6 +7,7 @@ function BarberProfile() {
     const [barberShop, setBarberShop] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [theme, setTheme] = useState({});
 
     // Load barber shop info from API
     useEffect(() => {
@@ -16,6 +17,14 @@ function BarberProfile() {
                 if (response.ok) {
                     const data = await response.json();
                     setBarberShop(data);
+                    
+                    // Set theme from barber shop data
+                    setTheme({
+                        primaryColor: data.themeColor || '#D4AF37',
+                        secondaryColor: data.secondaryColor || '#000000',
+                        fontFamily: data.fontFamily || 'Arial, sans-serif',
+                        logoUrl: data.logoUrl
+                    });
                 } else {
                     setError('Failed to load barber shop information');
                 }
@@ -57,10 +66,19 @@ function BarberProfile() {
     }
 
     return (
-        <div className="barber-profile">
+        <div className="barber-profile" style={{ 
+            '--primary-color': theme.primaryColor,
+            '--secondary-color': theme.secondaryColor,
+            '--font-family': theme.fontFamily
+        }}>
             <div className="barber-container">
                 <div className="barber-header">
-                    <h1 className="barber-title">{barberShop?.name || 'Barber Shop'}</h1>
+                    {theme.logoUrl && (
+                        <img src={theme.logoUrl} alt="Logo" className="barber-logo" />
+                    )}
+                    <h1 className="barber-title" style={{ color: theme.primaryColor }}>
+                        {barberShop?.name || 'Barber Shop'}
+                    </h1>
                     <p className="barber-subtitle">Professional Barber Services</p>
                 </div>
                 
