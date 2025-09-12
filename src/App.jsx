@@ -8,6 +8,8 @@ import Reviews from './pages/Reviews';
 import Services from './pages/Services';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import './css/EliteCuts.css';
+import './css/UniversalThemes.css';
 
 function App() {
 

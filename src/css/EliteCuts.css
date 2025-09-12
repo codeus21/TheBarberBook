@@ -1,0 +1,223 @@
+/* Elite Cuts Premium Styling */
+.elite-layout {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.elite-hero-section {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 50%, #C084FC 100%);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.elite-hero-content h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.elite-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.elite-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.elite-hero-decoration {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.elite-diamond {
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(45deg);
+    animation: eliteFloat 3s ease-in-out infinite;
+}
+
+.elite-diamond:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.elite-diamond:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes eliteFloat {
+    0%, 100% { transform: rotate(45deg) translateY(0px); }
+    50% { transform: rotate(45deg) translateY(-20px); }
+}
+
+.elite-content {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.elite-footer-section {
+    background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.elite-premium h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #F59E0B, #FCD34D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.elite-premium p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Elite-specific service cards */
+.elite-service-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+    transition: all 0.3s ease;
+}
+
+.elite-service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+}
+
+.elite-service-card h3 {
+    color: #8B5CF6;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.elite-service-card .price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #8B5CF6;
+    margin-bottom: 10px;
+}
+
+.elite-service-card .description {
+    color: #64748B;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.elite-service-card .duration {
+    color: #8B5CF6;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Elite-specific buttons */
+.elite-button {
+    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    padding: 15px 30px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.elite-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+    color: white;
+    text-decoration: none;
+}
+
+/* Elite-specific navigation */
+.elite-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+    padding: 20px 0;
+}
+
+.elite-nav .header-title {
+    background: linear-gradient(45deg, #8B5CF6, #A855F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+/* Elite-specific profile styling */
+.elite-profile {
+    background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.elite-profile h1 {
+    background: linear-gradient(45deg, #8B5CF6, #A855F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.elite-profile .elite-subtitle {
+    color: #64748B;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .elite-hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .elite-hero-decoration {
+        display: none;
+    }
+    
+    .elite-service-card {
+        padding: 20px;
+    }
+}

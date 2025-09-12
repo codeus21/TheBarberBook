@@ -1,0 +1,198 @@
+/* Universal theme system - works for all tenants */
+
+/* CSS Variables for dynamic theming */
+:root {
+    --primary-color: #D4AF37;
+    --secondary-color: #000000;
+    --background-color: #FFFFFF;
+    --text-color: #333333;
+    --font-family: Arial, sans-serif;
+    --heading-font: Arial, sans-serif;
+}
+
+/* Theme badge styling */
+.theme-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+/* Layout-specific styles */
+.elite-layout {
+    background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+    font-family: var(--font-family);
+}
+
+.clean-layout {
+    background: var(--background-color);
+    font-family: var(--font-family);
+}
+
+.vintage-layout {
+    background: #FAF0E6;
+    font-family: var(--font-family);
+}
+
+/* Universal button styles that work with all themes */
+.book-service-btn {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.book-service-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+/* Elite-specific button override */
+.elite-button {
+    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+    color: white;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.elite-button:hover {
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+    color: white;
+}
+
+/* Vintage-specific button override */
+.vintage-button {
+    background: #8B4513;
+    color: #F5F5DC;
+    border: 2px solid #8B4513;
+    font-family: Georgia, serif;
+}
+
+.vintage-button:hover {
+    background: #A0522D;
+    border-color: #A0522D;
+    color: #F5F5DC;
+}
+
+/* Universal service card styles */
+.service-card {
+    background: var(--background-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Elite-specific card override */
+.elite-service-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+}
+
+.elite-service-card:hover {
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+}
+
+/* Vintage-specific card override */
+.vintage-service-card {
+    background: #F5F5DC;
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    font-family: Georgia, serif;
+}
+
+/* Universal header styles */
+.services-header {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--background-color);
+}
+
+.services-title {
+    color: var(--primary-color);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: var(--heading-font);
+}
+
+.services-subtitle {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-family: var(--font-family);
+}
+
+/* Elite-specific header override */
+.elite-hero-section {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 50%, #C084FC 100%);
+    color: white;
+    padding: 80px 20px;
+}
+
+.elite-gold {
+    background: linear-gradient(45deg, #F59E0B, #FCD34D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 4rem;
+    font-weight: 800;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Vintage-specific header override */
+.vintage-hero-section {
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: #F5F5DC;
+    padding: 60px 20px;
+}
+
+.vintage-title {
+    color: #F5F5DC;
+    font-family: Georgia, serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .services-title {
+        font-size: 2rem;
+    }
+    
+    .elite-gold {
+        font-size: 2.5rem;
+    }
+    
+    .vintage-title {
+        font-size: 2.5rem;
+    }
+    
+    .service-card {
+        padding: 20px;
+    }
+}

@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import '../css/Services.css';
+import '../css/EliteCuts.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+import { getCurrentTheme } from '../utils/themeConfig.js';
+import ThemedComponent from '../components/ThemedComponent.jsx';
 
 function Services() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const tenant = getTenantFromUrl();
+    const theme = getCurrentTheme(tenant);
 
     // Load services from API
     useEffect(() => {
@@ -67,16 +72,24 @@ function Services() {
     }
 
     return(
-        <div className="services-page">
-            <div className="services-container">
-                <div className="services-header">
-                    <h1 className="services-title">Our Services</h1>
-                    <p className="services-subtitle">Professional Grooming Services for the Modern Gentleman</p>
-                </div>
+        <ThemedComponent>
+            <div className="services-page">
+                <div className="services-container">
+                    <div className={`services-header ${theme.styles.headerClass}`}>
+                        <h1 className={`services-title ${theme.styles.titleClass}`}>
+                            {theme.content.servicesTitle}
+                        </h1>
+                        <p className="services-subtitle">
+                            {theme.content.servicesSubtitle}
+                        </p>
+                        {theme.content.badgeText && (
+                            <div className="theme-badge">{theme.content.badgeText}</div>
+                        )}
+                    </div>
                 
                 <div className="services-grid">
                     {services.map(service => (
-                        <div key={service.id} className="service-card">
+                        <div key={service.id} className={`service-card ${theme.styles.cardClass}`}>
                             <div className="service-icon">{getServiceIcon(service.name)}</div>
                             <h3 className="service-title">{service.name}</h3>
                             <p className="service-description">
@@ -84,7 +97,9 @@ function Services() {
                             </p>
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
-                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-service-btn">Book Now</Link>
+                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className={`book-service-btn ${theme.styles.buttonClass}`}>
+                                {theme.content.buttonText}
+                            </Link>
                         </div>
                     ))}
                 </div>
@@ -98,7 +113,7 @@ function Services() {
                     </p>
                 </div>
             </div>
-        </div>
+        </ThemedComponent>
     )
 }
 
