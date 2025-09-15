@@ -1,0 +1,141 @@
+/* BarberProfile Page Layout Structure - Common across all tenants */
+
+.barber-profile {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.barber-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+}
+
+.barber-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.barber-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.barber-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.barber-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.barber-image-section {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.barber-image-placeholder {
+  width: 200px;
+  height: 200px;
+  border: 3px solid;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.barber-image-placeholder::before {
+  content: '✂️';
+  font-size: 4rem;
+}
+
+.info-item {
+  border-left: 4px solid;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  transform: translateX(5px);
+}
+
+.info-label {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+}
+
+.barber-hours {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.hours-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hours-text {
+  line-height: 1.6;
+}
+
+.book-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.book-button:hover {
+  transform: translateY(-2px);
+  color: white;
+  text-decoration: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .barber-container {
+    padding: 1rem;
+  }
+  
+  .barber-title {
+    font-size: 2.5rem;
+  }
+  
+  .barber-image-placeholder {
+    width: 150px;
+    height: 150px;
+  }
+}

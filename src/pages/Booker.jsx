@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import '../css/Booker.css'
-import { fetchWithTenant } from '../utils/apiHelper.js';
+import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+import '../css/layout-booker.css';
+import '../css/unified-theme.css';
 
 function Booker() {
     const navigate = useNavigate();
+    const tenant = getTenantFromUrl();
+    const theme = getCurrentTheme(tenant);
     
     // State management
     const [selectedHaircut, setSelectedHaircut] = useState(null);
@@ -172,6 +176,11 @@ function Booker() {
         loadServices();
     }, []);
 
+    // Apply theme CSS variables dynamically
+    useEffect(() => {
+        applyTheme(theme);
+    }, [theme]);
+
     // Load booked slots for a specific date
     const loadBookedSlots = async (date) => {
         try {
@@ -301,7 +310,7 @@ function Booker() {
     const isBookingComplete = selectedHaircut && selectedDate && selectedTime && isCustomerInfoValid();
     
     return (
-        <div className="booking-page">
+        <div className={`booking-page ${tenant}-theme`}>
             <div className="booking-container">
                 <div className="booking-header">
                     <h1 className="booking-title">Book Your Appointment</h1>

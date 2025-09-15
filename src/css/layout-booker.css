@@ -1,0 +1,335 @@
+/* Booker Page Layout Structure - Common across all tenants */
+
+.booking-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.booking-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.booking-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.error-message {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.booking-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+}
+
+.booking-sidebar {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  height: fit-content;
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.service-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.service-option {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.service-option:hover {
+  transform: translateY(-2px);
+}
+
+.service-option.selected {
+  border-width: 2px;
+}
+
+.service-name {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.service-price {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.service-duration {
+  font-size: 0.9rem;
+}
+
+.customer-info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-width: 2px;
+}
+
+.form-group input::placeholder {
+  opacity: 0.7;
+}
+
+.form-group input:invalid {
+  border-color: #ff6b6b;
+}
+
+.form-group input:valid {
+  border-color: var(--primary-color);
+}
+
+.calendar-section {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+}
+
+.current-month {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-day-header {
+  text-align: center;
+  font-weight: 600;
+  padding: 1rem 0;
+  border-bottom: 1px solid;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+.calendar-day.other-month {
+  opacity: 0.3;
+}
+
+.calendar-day.available {
+  border: 1px solid;
+}
+
+.calendar-day.booked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.calendar-day.selected {
+  border-width: 2px;
+  transform: scale(1.1);
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.time-slot {
+  padding: 1rem;
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.time-slot:hover {
+  transform: translateY(-2px);
+}
+
+.time-slot.selected {
+  border-width: 2px;
+}
+
+.time-slot.booked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.booking-summary {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.summary-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.customer-summary h4,
+.service-summary h4,
+.appointment-summary h4 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.customer-summary p,
+.service-summary p,
+.appointment-summary p {
+  margin-bottom: 0.25rem;
+}
+
+.customer-summary strong,
+.service-summary strong,
+.appointment-summary strong {
+  font-weight: 600;
+}
+
+.book-appointment-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+}
+
+.book-appointment-btn:hover {
+  transform: translateY(-2px);
+}
+
+.book-appointment-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .booking-container {
+    padding: 1rem;
+  }
+  
+  .booking-form {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .booking-title {
+    font-size: 2.5rem;
+  }
+  
+  .calendar-grid {
+    gap: 0.25rem;
+  }
+  
+  .calendar-day {
+    font-size: 0.9rem;
+  }
+}

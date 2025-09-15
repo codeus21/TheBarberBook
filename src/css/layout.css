@@ -1,0 +1,156 @@
+/* Base Layout Structure - Common across all tenants */
+
+/* Services Page Layout */
+.services-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.services-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.services-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.services-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.theme-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.service-card {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto 1rem;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.service-description {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.service-price {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  display: inline-block;
+}
+
+.service-duration {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.book-service-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.book-service-btn:hover {
+  transform: translateY(-2px);
+  color: white;
+  text-decoration: none;
+}
+
+.services-info {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+}
+
+.info-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.info-text {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}

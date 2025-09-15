@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getTenantFromUrl } from '../utils/apiHelper.js';
-import '../css/Confirmation.css';
+import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+import '../css/layout-confirmation.css';
+import '../css/unified-theme.css';
 
 function Confirmation(){
     const [appointmentData, setAppointmentData] = useState(null);
+    const tenant = getTenantFromUrl();
+    const theme = getCurrentTheme(tenant);
 
     useEffect(() => {
         // Retrieve appointment data from localStorage
@@ -17,6 +21,11 @@ function Confirmation(){
         }
     }, []);
 
+    // Apply theme CSS variables dynamically
+    useEffect(() => {
+        applyTheme(theme);
+    }, [theme]);
+
     const formatDate = (date) => {
         return date.toLocaleDateString('en-US', { 
             weekday: 'long', 
@@ -28,7 +37,7 @@ function Confirmation(){
 
     if (!appointmentData) {
         return (
-            <div className="confirmation-page">
+            <div className={`confirmation-page ${tenant}-theme`}>
                 <div className="confirmation-container">
                     <div className="confirmation-header">
                         <h1 className="confirmation-title">Loading...</h1>
@@ -39,7 +48,7 @@ function Confirmation(){
     }
 
     return(
-        <div className="confirmation-page">
+        <div className={`confirmation-page ${tenant}-theme`}>
             <div className="confirmation-container">
                 <div className="confirmation-header">
                     <h1 className="confirmation-title">Booking Confirmed!</h1>

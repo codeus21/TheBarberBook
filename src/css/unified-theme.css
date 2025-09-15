@@ -1,0 +1,602 @@
+/* Unified Theme CSS - Colors and Fonts Only */
+
+/* Default CSS Variables - Will be overridden by applyTheme() */
+:root {
+  /* Colors */
+  --primary-color: #D4AF37;
+  --primary-light: #FFED4E;
+  --secondary-color: #000000;
+  --background-color: #1A1A1A;
+  --background-light: #2D2D2D;
+  --text-color: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --text-light: #FFFFFF;
+  --container-bg: rgba(255, 255, 255, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --accent-bg: rgba(255, 215, 0, 0.1);
+  --accent-border: rgba(255, 215, 0, 0.3);
+  --shadow-color: #D4AF37;
+
+  /* Fonts */
+  --font-family: Georgia, serif;
+  --heading-font: Georgia, serif;
+  --logo-font: Dancing Script, Brush Script MT, Lucida Handwriting, cursive;
+
+  /* Effects */
+  --border-radius: 15px;
+  --backdrop-filter: blur(10px);
+}
+
+/* Services Page Theme Colors */
+.services-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.services-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.services-header::after {
+  background: var(--primary-color);
+}
+
+.services-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.services-subtitle {
+  color: var(--text-secondary);
+}
+
+.theme-badge {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--primary-color);
+}
+
+.service-card {
+  background: var(--card-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.service-card::before {
+  background: var(--primary-color);
+}
+
+.service-icon {
+  background: var(--primary-color);
+  color: var(--text-light);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.service-title {
+  color: var(--text-color);
+  font-family: var(--heading-font);
+}
+
+.service-description {
+  color: var(--text-secondary);
+}
+
+.service-price {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.service-duration {
+  color: var(--text-secondary);
+}
+
+.book-service-btn {
+  background: var(--primary-color);
+  color: var(--text-light);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-service-btn:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  color: var(--text-light);
+}
+
+.services-info {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.info-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.info-text {
+  color: var(--text-color);
+}
+
+/* Header Theme Colors */
+.header {
+  background: var(--background-color);
+  border-bottom-color: var(--primary-color);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.header-logo {
+  color: var(--primary-color);
+  text-shadow: 0 2px 4px var(--shadow-color);
+  font-family: var(--logo-font);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+}
+
+.business-name {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.business-phone {
+  color: var(--text-secondary);
+}
+
+/* Footer Theme Colors */
+.footer {
+  background: var(--background-color);
+  border-top-color: var(--primary-color);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.footer-brand {
+  color: var(--primary-color);
+  text-shadow: 0 2px 4px var(--shadow-color);
+  font-family: var(--heading-font);
+}
+
+.footer-tagline {
+  color: var(--text-secondary);
+}
+
+.footer-link {
+  color: var(--text-secondary);
+}
+
+.footer-link:hover {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+}
+
+.footer-phone {
+  color: var(--primary-color);
+}
+
+.footer-hours {
+  color: var(--text-secondary);
+}
+
+.footer-bottom {
+  border-top-color: var(--accent-border);
+  color: var(--text-secondary);
+}
+
+/* BarberProfile Page Theme Colors */
+.barber-profile {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.barber-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.barber-header::after {
+  background: var(--primary-color);
+}
+
+.barber-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.barber-subtitle {
+  color: var(--text-secondary);
+}
+
+.barber-image-section {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.barber-image-placeholder {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.barber-image-placeholder::before {
+  color: var(--text-light);
+}
+
+.info-item {
+  background: var(--accent-bg);
+  border-left-color: var(--primary-color);
+}
+
+.info-item:hover {
+  background: var(--accent-border);
+}
+
+.info-label {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.info-value {
+  color: var(--text-color);
+}
+
+.barber-hours {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.hours-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.hours-text {
+  color: var(--text-color);
+}
+
+.book-button {
+  background: var(--primary-color);
+  color: var(--text-light);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-button:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  color: var(--text-light);
+}
+
+/* Reviews Page Theme Colors */
+.reviews-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.reviews-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.reviews-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.reviews-subtitle {
+  color: var(--text-secondary);
+}
+
+.welcome-message {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+}
+
+.review-card {
+  background: var(--card-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.review-card:hover {
+  background: var(--container-bg);
+}
+
+.reviewer-avatar {
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+.reviewer-name {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.review-date {
+  color: var(--text-secondary);
+}
+
+.star {
+  color: var(--primary-color);
+}
+
+.review-text {
+  color: var(--text-secondary);
+}
+
+.review-service {
+  color: var(--primary-color);
+}
+
+.add-review-section {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.add-review-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.add-review-text {
+  color: var(--text-color);
+}
+
+.book-now-btn {
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+.book-now-btn:hover {
+  background: var(--primary-light);
+  color: var(--text-light);
+}
+
+/* Booker Page Theme Colors */
+.booking-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.booking-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.booking-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.booking-subtitle {
+  color: var(--text-secondary);
+}
+
+.error-message {
+  color: #ff6666;
+  background: rgba(255, 107, 107, 0.1);
+  border-color: #ff6666;
+}
+
+.booking-sidebar {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.service-option {
+  background: var(--card-bg);
+  border-color: var(--accent-border);
+}
+
+.service-option:hover {
+  background: var(--container-bg);
+}
+
+.service-name {
+  color: var(--text-color);
+}
+
+.service-price {
+  color: var(--primary-color);
+}
+
+.service-duration {
+  color: var(--text-secondary);
+}
+
+.form-group label {
+  color: var(--primary-color);
+}
+
+.form-group input {
+  background: var(--card-bg);
+  border-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.form-group input:focus {
+  background: var(--container-bg);
+  border-color: var(--primary-color);
+}
+
+.form-group input::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-group input:invalid {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.form-group input:valid {
+  border-color: var(--primary-color);
+  background: var(--card-bg);
+}
+
+.calendar-section {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.nav-btn {
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+.current-month {
+  color: var(--primary-color);
+}
+
+.calendar-day-header {
+  color: var(--primary-color);
+}
+
+.calendar-day.other-month {
+  color: var(--text-secondary);
+}
+
+.calendar-day.available {
+  color: var(--text-color);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.calendar-day.booked {
+  color: #ff6666;
+}
+
+.time-slot {
+  border-color: var(--accent-border);
+}
+
+.time-slot.booked {
+  color: #ff6666;
+}
+
+.booking-summary {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.summary-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.customer-summary h4,
+.service-summary h4,
+.appointment-summary h4 {
+  color: var(--primary-color);
+}
+
+.customer-summary p,
+.service-summary p,
+.appointment-summary p {
+  color: var(--text-color);
+}
+
+.customer-summary strong,
+.service-summary strong,
+.appointment-summary strong {
+  color: var(--primary-color);
+}
+
+.book-appointment-btn {
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+.book-appointment-btn:hover {
+  background: var(--primary-light);
+}
+
+/* Confirmation Page Theme Colors */
+.confirmation-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.confirmation-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.confirmation-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.confirmation-subtitle {
+  color: var(--text-secondary);
+}
+
+.confirmation-details {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.details-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.detail-label {
+  color: var(--primary-color);
+}
+
+.detail-value {
+  color: var(--text-color);
+}
+
+.message-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.message-text {
+  color: var(--text-color);
+}
+
+.contact-info {
+  color: var(--text-secondary);
+}
+
+.done-button {
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+.done-button:hover {
+  background: var(--primary-light);
+  color: var(--text-light);
+}

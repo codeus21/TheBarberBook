@@ -1,0 +1,164 @@
+/* Reviews Page Layout Structure - Common across all tenants */
+
+.reviews-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.reviews-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+}
+
+.reviews-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.reviews-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.reviews-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.welcome-message {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.review-card {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reviewer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.reviewer-info {
+  flex: 1;
+}
+
+.reviewer-name {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.review-date {
+  font-size: 0.9rem;
+}
+
+.star-rating {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.star {
+  font-size: 1.2rem;
+  margin-right: 0.25rem;
+}
+
+.review-text {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid;
+}
+
+.review-service {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.add-review-section {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+}
+
+.add-review-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.add-review-text {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.book-now-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.book-now-btn:hover {
+  transform: translateY(-2px);
+  color: white;
+  text-decoration: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .reviews-container {
+    padding: 1rem;
+  }
+  
+  .reviews-title {
+    font-size: 2.5rem;
+  }
+  
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}

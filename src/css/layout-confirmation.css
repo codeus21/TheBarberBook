@@ -1,0 +1,137 @@
+/* Confirmation Page Layout Structure - Common across all tenants */
+
+.confirmation-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+  text-align: center;
+}
+
+.confirmation-header {
+  margin-bottom: 3rem;
+}
+
+.confirmation-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.confirmation-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.confirmation-details {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.details-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  flex: 1;
+  text-align: left;
+}
+
+.detail-value {
+  flex: 1;
+  text-align: right;
+  font-weight: 500;
+}
+
+.confirmation-message {
+  margin-bottom: 3rem;
+}
+
+.message-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.message-text {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.contact-info {
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.done-button-container {
+  margin-top: 2rem;
+}
+
+.done-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.done-button:hover {
+  transform: translateY(-2px);
+  color: white;
+  text-decoration: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .confirmation-container {
+    padding: 1rem;
+  }
+  
+  .confirmation-title {
+    font-size: 2.5rem;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .detail-label,
+  .detail-value {
+    text-align: left;
+  }
+}

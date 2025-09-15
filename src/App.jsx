@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import BarberProfile from './pages/BarberProfile';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -8,10 +9,16 @@ import Reviews from './pages/Reviews';
 import Services from './pages/Services';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
-import './css/EliteCuts.css';
-import './css/UniversalThemes.css';
+import { getCurrentTheme, applyTheme } from './utils/themeConfig.js';
+import { getTenantFromUrl } from './utils/apiHelper.js';
 
 function App() {
+  // Apply default theme on app load
+  useEffect(() => {
+    const tenant = getTenantFromUrl();
+    const theme = getCurrentTheme(tenant);
+    applyTheme(theme);
+  }, []);
 
   return (
     <Router>

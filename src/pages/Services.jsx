@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import '../css/Services.css';
-import '../css/UniversalThemes.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+import '../css/layout.css';
+import '../css/unified-theme.css';
 
 function Services() {
     const [services, setServices] = useState([]);
@@ -10,6 +11,7 @@ function Services() {
     const [error, setError] = useState(null);
     const [barberShop, setBarberShop] = useState(null);
     const tenant = getTenantFromUrl();
+    const theme = getCurrentTheme(tenant);
 
     // Load services and barber shop data from API
     useEffect(() => {
@@ -38,15 +40,10 @@ function Services() {
         loadData();
     }, []);
 
-    // Apply theme CSS variables
+    // Apply theme CSS variables dynamically
     useEffect(() => {
-        if (barberShop) {
-            const root = document.documentElement;
-            root.style.setProperty('--primary-color', barberShop.themeColor);
-            root.style.setProperty('--secondary-color', barberShop.secondaryColor);
-            root.style.setProperty('--font-family', barberShop.fontFamily);
-        }
-    }, [barberShop]);
+        applyTheme(theme);
+    }, [theme]);
 
     // Get service icon based on service name
     const getServiceIcon = (serviceName) => {
@@ -85,23 +82,23 @@ function Services() {
     }
 
     return(
-        <div className={`services-page ${tenant}-layout`}>
+        <div className={`services-page ${tenant}-theme`}>
             <div className="services-container">
-                <div className={`services-header ${tenant === 'elite' ? 'elite-hero-section' : ''}`}>
-                    <h1 className={`services-title ${tenant === 'elite' ? 'elite-gold' : ''}`}>
-                        {barberShop?.name || 'Our Services'}
+                <div className="services-header">
+                    <h1 className="services-title">
+                        {barberShop?.name || theme.content.servicesTitle}
                     </h1>
                     <p className="services-subtitle">
-                        {tenant === 'elite' ? 'Premium Grooming Services for the Discerning Gentleman' : 'Professional Grooming Services for the Modern Gentleman'}
+                        {theme.content.servicesSubtitle}
                     </p>
-                    {tenant === 'elite' && (
-                        <div className="theme-badge">Exclusive Elite Experience</div>
+                    {theme.content.badgeText && (
+                        <div className="theme-badge">{theme.content.badgeText}</div>
                     )}
                 </div>
                 
                 <div className="services-grid">
                     {services.map(service => (
-                        <div key={service.id} className={`service-card ${tenant === 'elite' ? 'elite-service-card' : ''}`}>
+                        <div key={service.id} className="service-card">
                             <div className="service-icon">{getServiceIcon(service.name)}</div>
                             <h3 className="service-title">{service.name}</h3>
                             <p className="service-description">
@@ -109,8 +106,8 @@ function Services() {
                             </p>
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
-                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className={`book-service-btn ${tenant === 'elite' ? 'elite-button' : ''}`}>
-                                {tenant === 'elite' ? 'Reserve Now' : 'Book Now'}
+                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-service-btn">
+                                {theme.content.buttonText}
                             </Link>
                         </div>
                     ))}

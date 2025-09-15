@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
 import { getTenantFromUrl } from '../utils/apiHelper.js';
-import '../css/Reviews.css'
+import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+import { useEffect } from 'react';
+import '../css/layout-reviews.css';
+import '../css/unified-theme.css';
 
 function Reviews() {
+    const tenant = getTenantFromUrl();
+    const theme = getCurrentTheme(tenant);
+
+    // Apply theme CSS variables dynamically
+    useEffect(() => {
+        applyTheme(theme);
+    }, [theme]);
+    
     return (
-        <div className="reviews-page">
+        <div className={`reviews-page ${tenant}-theme`}>
             <div className="reviews-container">
                 <div className="reviews-header">
                     <h1 className="reviews-title">Customer Reviews</h1>
