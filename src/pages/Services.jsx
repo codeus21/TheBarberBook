@@ -1,39 +1,52 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import '../css/Services.css';
-import '../css/EliteCuts.css';
+import '../css/UniversalThemes.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
-import { getCurrentTheme } from '../utils/themeConfig.js';
-import ThemedComponent from '../components/ThemedComponent.jsx';
 
 function Services() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [barberShop, setBarberShop] = useState(null);
     const tenant = getTenantFromUrl();
-    const theme = getCurrentTheme(tenant);
 
-    // Load services from API
+    // Load services and barber shop data from API
     useEffect(() => {
-        const loadServices = async () => {
+        const loadData = async () => {
             try {
-                const response = await fetchWithTenant('/Services');
-                if (response.ok) {
-                    const data = await response.json();
-                    setServices(data);
-                } else {
-                    setError('Failed to load services');
+                // Load services
+                const servicesResponse = await fetchWithTenant('/Services');
+                if (servicesResponse.ok) {
+                    const servicesData = await servicesResponse.json();
+                    setServices(servicesData);
+                }
+
+                // Load barber shop theme data
+                const barberResponse = await fetchWithTenant('/BarberShop/current');
+                if (barberResponse.ok) {
+                    const barberData = await barberResponse.json();
+                    setBarberShop(barberData);
                 }
             } catch (err) {
-                setError('Error loading services');
-                console.error('Error loading services:', err);
+                setError('Error loading data: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
         
-        loadServices();
+        loadData();
     }, []);
+
+    // Apply theme CSS variables
+    useEffect(() => {
+        if (barberShop) {
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', barberShop.themeColor);
+            root.style.setProperty('--secondary-color', barberShop.secondaryColor);
+            root.style.setProperty('--font-family', barberShop.fontFamily);
+        }
+    }, [barberShop]);
 
     // Get service icon based on service name
     const getServiceIcon = (serviceName) => {
@@ -72,24 +85,23 @@ function Services() {
     }
 
     return(
-        <ThemedComponent>
-            <div className="services-page">
-                <div className="services-container">
-                    <div className={`services-header ${theme.styles.headerClass}`}>
-                        <h1 className={`services-title ${theme.styles.titleClass}`}>
-                            {theme.content.servicesTitle}
-                        </h1>
-                        <p className="services-subtitle">
-                            {theme.content.servicesSubtitle}
-                        </p>
-                        {theme.content.badgeText && (
-                            <div className="theme-badge">{theme.content.badgeText}</div>
-                        )}
-                    </div>
+        <div className={`services-page ${tenant}-layout`}>
+            <div className="services-container">
+                <div className={`services-header ${tenant === 'elite' ? 'elite-hero-section' : ''}`}>
+                    <h1 className={`services-title ${tenant === 'elite' ? 'elite-gold' : ''}`}>
+                        {barberShop?.name || 'Our Services'}
+                    </h1>
+                    <p className="services-subtitle">
+                        {tenant === 'elite' ? 'Premium Grooming Services for the Discerning Gentleman' : 'Professional Grooming Services for the Modern Gentleman'}
+                    </p>
+                    {tenant === 'elite' && (
+                        <div className="theme-badge">Exclusive Elite Experience</div>
+                    )}
+                </div>
                 
                 <div className="services-grid">
                     {services.map(service => (
-                        <div key={service.id} className={`service-card ${theme.styles.cardClass}`}>
+                        <div key={service.id} className={`service-card ${tenant === 'elite' ? 'elite-service-card' : ''}`}>
                             <div className="service-icon">{getServiceIcon(service.name)}</div>
                             <h3 className="service-title">{service.name}</h3>
                             <p className="service-description">
@@ -97,8 +109,8 @@ function Services() {
                             </p>
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
-                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className={`book-service-btn ${theme.styles.buttonClass}`}>
-                                {theme.content.buttonText}
+                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className={`book-service-btn ${tenant === 'elite' ? 'elite-button' : ''}`}>
+                                {tenant === 'elite' ? 'Reserve Now' : 'Book Now'}
                             </Link>
                         </div>
                     ))}
@@ -113,7 +125,7 @@ function Services() {
                     </p>
                 </div>
             </div>
-        </ThemedComponent>
+        </div>
     )
 }
 
