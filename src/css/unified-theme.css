@@ -185,10 +185,13 @@
 
 .footer-phone {
   color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
 .footer-hours {
   color: var(--text-secondary);
+  margin-bottom: 0;
 }
 
 .footer-bottom {
