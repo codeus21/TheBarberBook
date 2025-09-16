@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getTenantFromUrl } from '../utils/apiHelper.js';
-import '../css/Confirmation.css';
+import { getTenantFromUrl, fetchWithTenant } from '../utils/apiHelper.js';
+// Theme handled by CSS classes, not JavaScript
+import '../css/layout-confirmation.css';
+import '../css/unified-theme.css';
 
 function Confirmation(){
     const [appointmentData, setAppointmentData] = useState(null);
+    const [barberShop, setBarberShop] = useState(null);
+    const tenant = getTenantFromUrl();
 
     useEffect(() => {
         // Retrieve appointment data from localStorage
@@ -16,6 +20,25 @@ function Confirmation(){
             setAppointmentData(data);
         }
     }, []);
+
+    // Load barber shop info for contact details
+    useEffect(() => {
+        const loadBarberShop = async () => {
+            try {
+                const response = await fetchWithTenant('/BarberShop/current');
+                if (response.ok) {
+                    const data = await response.json();
+                    setBarberShop(data);
+                }
+            } catch (err) {
+                console.error('Error loading barber shop:', err);
+            }
+        };
+        
+        loadBarberShop();
+    }, []);
+
+    // Theme handled by CSS classes in App.jsx
 
     const formatDate = (date) => {
         return date.toLocaleDateString('en-US', { 
@@ -103,8 +126,7 @@ function Confirmation(){
                         Please arrive 5 minutes before your scheduled time.
                     </p>
                     <p className="contact-info">
-                        If you need to make any changes, please contact us at 123-456-7890 
-                        or email us at example@cleancuts.com
+                        If you need to make any changes, please contact us at {barberShop?.businessPhone || '(123) 456-7890'} or email us at {barberShop?.adminEmail || 'contact@barbershop.com'}
                     </p>
                 </div>
                 

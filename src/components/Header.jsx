@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import '../css/Header.css'
 import { getTenantFromUrl, fetchWithTenant } from '../utils/apiHelper.js';
+// Theme imports removed - handled by individual pages
+import '../css/layout-header.css';
+import '../css/unified-theme.css';
 
 function Header(){
     const [tenant, setTenant] = useState('default');
@@ -28,6 +30,8 @@ function Header(){
         loadBarberShop();
     }, []);
 
+    // Theme is applied by individual pages, not by Header
+
     // Helper function to create links with tenant parameter
     const createLink = (path) => {
         return `${path}?tenant=${tenant}`;
@@ -35,19 +39,24 @@ function Header(){
 
     return(
         <header className="header">
-            <div className="header-container">
-                <div>
-                    <h1 className="header-title">
-                        {barberShop?.name || 'Clean Cuts'}
-                    </h1>
-                    <p className="header-subtitle">Professional Grooming Services</p>
+            <div className="header-left">
+                <Link to={createLink("/")} className="header-logo">
+                    {barberShop?.name || 'Cuts'}
+                </Link>
+            </div>
+            
+            <nav className="header-nav">
+                <Link to={createLink("/")} className="nav-link">Home</Link>
+                <Link to={createLink("/services")} className="nav-link">Services</Link>
+                <Link to={createLink("/reviews")} className="nav-link">Reviews</Link>
+                <Link to={createLink("/booker")} className="nav-link">Book Now</Link>
+            </nav>
+            
+            <div className="header-right">
+                <div className="header-info">
+                    <div className="business-name">{barberShop?.name || 'Cuts'}</div>
+                    <div className="business-phone">{barberShop?.businessPhone || '(123) 456-7890'}</div>
                 </div>
-                <nav className="header-nav">
-                    <Link to={createLink("/")} className="nav-link">Home</Link>
-                    <Link to={createLink("/services")} className='nav-link'>Services</Link>
-                    <Link to={createLink("/reviews")} className="nav-link">Reviews</Link>
-                    <Link to={createLink("/booker")} className="nav-link">Book Now</Link>
-                </nav>
             </div>
         </header>
     )

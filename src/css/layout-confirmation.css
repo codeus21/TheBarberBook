@@ -1,43 +1,26 @@
-/* Classic Barber Shop Confirmation Styling */
+/* Confirmation Page Layout Structure - Common across all tenants */
+
 .confirmation-page {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   min-height: 100vh;
   padding: 2rem;
-  font-family: 'Georgia', serif;
-  color: #ffffff;
 }
 
 .confirmation-container {
   max-width: 800px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   padding: 3rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
 }
 
 .confirmation-header {
-  text-align: center;
   margin-bottom: 3rem;
-  position: relative;
-}
-
-.confirmation-header::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(90deg, #ffd700, #ffed4e);
 }
 
 .confirmation-title {
   font-size: 3.5rem;
   font-weight: bold;
-  color: #ffd700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 0.5rem;
   letter-spacing: 2px;
@@ -45,34 +28,28 @@
 
 .confirmation-subtitle {
   font-size: 1.2rem;
-  color: #cccccc;
   font-style: italic;
 }
 
 .success-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 2rem;
   font-size: 2.5rem;
-  color: #1a1a1a;
-  box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
 }
 
 .confirmation-details {
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
   margin: 2rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
 }
 
 .details-title {
-  color: #ffd700;
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
@@ -88,7 +65,7 @@
   background: rgba(255, 255, 255, 0.03);
   border-radius: 8px;
   margin-bottom: 1rem;
-  border-left: 4px solid #ffd700;
+  border-left: 4px solid var(--primary-color);
   transition: all 0.3s ease;
 }
 
@@ -99,39 +76,33 @@
 
 .detail-label {
   font-weight: bold;
-  color: #ffd700;
   font-size: 1.1rem;
 }
 
 .detail-value {
-  color: #ffffff;
   font-size: 1.1rem;
 }
 
 .confirmation-message {
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 12px;
   padding: 2rem;
   margin: 2rem 0;
   text-align: center;
+  border: 1px solid;
 }
 
 .message-title {
-  color: #ffd700;
   font-weight: bold;
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
 .message-text {
-  color: #ffffff;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 .contact-info {
-  color: #cccccc;
   font-size: 0.9rem;
   font-style: italic;
 }
@@ -142,8 +113,6 @@
 }
 
 .done-button {
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #1a1a1a;
   border: none;
   padding: 1rem 3rem;
   font-size: 1.3rem;
@@ -153,14 +122,7 @@
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
   letter-spacing: 1px;
-}
-
-.done-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(45deg, #ffed4e, #ffd700);
 }
 
 /* Responsive Design */

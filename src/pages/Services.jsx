@@ -1,34 +1,45 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import '../css/Services.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+// Theme handled by CSS classes in App.jsx
+import '../css/layout-services.css';
+import '../css/unified-theme.css';
 
 function Services() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [barberShop, setBarberShop] = useState(null);
+    const tenant = getTenantFromUrl();
 
-    // Load services from API
+    // Load services and barber shop data from API
     useEffect(() => {
-        const loadServices = async () => {
+        const loadData = async () => {
             try {
-                const response = await fetchWithTenant('/Services');
-                if (response.ok) {
-                    const data = await response.json();
-                    setServices(data);
-                } else {
-                    setError('Failed to load services');
+                // Load services
+                const servicesResponse = await fetchWithTenant('/Services');
+                if (servicesResponse.ok) {
+                    const servicesData = await servicesResponse.json();
+                    setServices(servicesData);
+                }
+
+                // Load barber shop theme data
+                const barberResponse = await fetchWithTenant('/BarberShop/current');
+                if (barberResponse.ok) {
+                    const barberData = await barberResponse.json();
+                    setBarberShop(barberData);
                 }
             } catch (err) {
-                setError('Error loading services');
-                console.error('Error loading services:', err);
+                setError('Error loading data: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
         
-        loadServices();
+        loadData();
     }, []);
+
+    // Theme handled by CSS classes in App.jsx
 
     // Get service icon based on service name
     const getServiceIcon = (serviceName) => {
@@ -70,8 +81,12 @@ function Services() {
         <div className="services-page">
             <div className="services-container">
                 <div className="services-header">
-                    <h1 className="services-title">Our Services</h1>
-                    <p className="services-subtitle">Professional Grooming Services for the Modern Gentleman</p>
+                    <h1 className="services-title">
+                        {barberShop?.name || 'Our Services'}
+                    </h1>
+                    <p className="services-subtitle">
+                        Professional Grooming Services
+                    </p>
                 </div>
                 
                 <div className="services-grid">
@@ -84,7 +99,9 @@ function Services() {
                             </p>
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
-                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-service-btn">Book Now</Link>
+                            <Link to={`/booker?tenant=${tenant}`} className="book-service-btn">
+                                Book Now
+                            </Link>
                         </div>
                     ))}
                 </div>

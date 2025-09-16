@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import '../css/Booker.css'
-import { fetchWithTenant } from '../utils/apiHelper.js';
+import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+// Theme handled by CSS classes in App.jsx
+import '../css/layout-booker.css';
+import '../css/unified-theme.css';
 
 function Booker() {
     const navigate = useNavigate();
+    const tenant = getTenantFromUrl();
     
     // State management
     const [selectedHaircut, setSelectedHaircut] = useState(null);
@@ -172,6 +175,8 @@ function Booker() {
         loadServices();
     }, []);
 
+    // Theme handled by CSS classes in App.jsx
+
     // Load booked slots for a specific date
     const loadBookedSlots = async (date) => {
         try {
@@ -253,8 +258,8 @@ function Booker() {
                         customerInfo: customerInfo
                     }));
                     
-                    // Navigate to confirmation page
-                    navigate('/confirmation');
+                    // Navigate to confirmation page with tenant parameter
+                    navigate(`/confirmation?tenant=${tenant}`);
                 } else {
                     const errorData = await response.text();
                     setError(errorData || 'Failed to book appointment');

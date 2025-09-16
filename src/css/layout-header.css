@@ -1,0 +1,128 @@
+/* Header Layout Structure - Common across all tenants */
+
+.header {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid;
+  backdrop-filter: var(--backdrop-filter);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: color 0.3s ease;
+}
+
+.header-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+}
+
+.nav-link:hover {
+  text-decoration: none;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-info {
+  text-align: right;
+}
+
+.business-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.business-phone {
+  font-size: 0.9rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
+    align-items: center;
+  }
+  
+  .header-left {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .header-logo {
+    margin-right: 0;
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+  }
+  
+  .header-right {
+    order: 2;
+    display: none; /* Hide business info on mobile */
+  }
+  
+  .header-nav {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .nav-link {
+    margin: 0 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .header {
+    padding: 0.6rem;
+    gap: 0.6rem;
+  }
+  
+  .header-logo {
+    font-size: 1.8rem;
+  }
+  
+  .nav-link {
+    margin: 0 0.3rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+  }
+  
+  .header-nav {
+    gap: 0.3rem;
+  }
+}

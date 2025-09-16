@@ -1,24 +1,17 @@
-/* Classic Barber Shop Styling with Theme Support */
+/* BarberProfile Page Layout Structure - Common across all tenants */
+
 .barber-profile {
-  --primary-color: #D4AF37;
-  --secondary-color: #000000;
-  --font-family: Arial, sans-serif;
-  
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   min-height: 100vh;
   padding: 2rem;
-  font-family: var(--font-family);
-  color: #ffffff;
 }
 
 .barber-container {
   max-width: 800px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   padding: 3rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
 }
 
 .barber-header {
@@ -35,13 +28,12 @@
   transform: translateX(-50%);
   width: 100px;
   height: 3px;
-  background: linear-gradient(90deg, #ffd700, #ffed4e);
+  border-radius: 2px;
 }
 
 .barber-title {
   font-size: 3.5rem;
   font-weight: bold;
-  color: var(--primary-color);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 0.5rem;
   letter-spacing: 2px;
@@ -56,7 +48,6 @@
 
 .barber-subtitle {
   font-size: 1.2rem;
-  color: #cccccc;
   font-style: italic;
 }
 
@@ -64,21 +55,19 @@
   text-align: center;
   margin: 2rem 0;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.03);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
 }
 
 .barber-image-placeholder {
   width: 200px;
   height: 200px;
-  background: linear-gradient(45deg, #333, #555);
   border-radius: 50%;
   margin: 0 auto 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #ffd700;
+  border: 3px solid;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -97,40 +86,34 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  border-left: 4px solid #ffd700;
+  border-left: 4px solid;
   transition: all 0.3s ease;
 }
 
 .info-item:hover {
-  background: rgba(255, 255, 255, 0.08);
   transform: translateX(5px);
 }
 
 .info-label {
   font-weight: bold;
-  color: #ffd700;
   min-width: 120px;
   font-size: 1.1rem;
 }
 
 .info-value {
-  color: #ffffff;
   margin-left: 1rem;
   flex: 1;
 }
 
 .barber-hours {
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
+  border: 1px solid;
 }
 
 .hours-title {
-  color: #ffd700;
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 1rem;
@@ -138,7 +121,6 @@
 }
 
 .hours-text {
-  color: #ffffff;
   line-height: 1.6;
   text-align: center;
 }
@@ -149,8 +131,6 @@
 }
 
 .book-button {
-  background: linear-gradient(45deg, var(--primary-color), var(--primary-color));
-  color: var(--secondary-color);
   border: none;
   padding: 1rem 3rem;
   font-size: 1.3rem;
@@ -160,14 +140,7 @@
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
   letter-spacing: 1px;
-}
-
-.book-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(45deg, #ffed4e, #ffd700);
 }
 
 .book-button:active {

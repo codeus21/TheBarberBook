@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { getTenantFromUrl } from '../utils/apiHelper.js';
-import '../css/Reviews.css'
+// Theme handled by CSS classes in App.jsx
+import '../css/layout-reviews.css';
+import '../css/unified-theme.css';
 
 function Reviews() {
+    // Theme handled by CSS classes in App.jsx
+    const tenant = getTenantFromUrl();
+    
     return (
         <div className="reviews-page">
             <div className="reviews-container">
@@ -119,7 +124,7 @@ function Reviews() {
                         Ready to join our satisfied customers? Book your appointment today and 
                         experience the professional grooming services that our clients love.
                     </p>
-                    <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-now-btn">Book Now</Link>
+                    <Link to={`/booker?tenant=${tenant}`} className="book-now-btn">Book Now</Link>
                 </div>
             </div>
         </div>

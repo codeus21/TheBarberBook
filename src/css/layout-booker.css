@@ -1,43 +1,27 @@
-/* Classic Barber Shop Booking Styling */
+/* Booker Page Layout Structure - Common across all tenants */
+
 .booking-page {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   min-height: 100vh;
   padding: 2rem;
-  font-family: 'Georgia', serif;
-  color: #ffffff;
 }
 
 .booking-container {
   max-width: 1200px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   padding: 3rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
 }
 
 .booking-header {
   text-align: center;
   margin-bottom: 3rem;
-  position: relative;
-}
-
-.booking-header::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(90deg, #ffd700, #ffed4e);
 }
 
 .booking-title {
   font-size: 3.5rem;
   font-weight: bold;
-  color: #ffd700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 0.5rem;
   letter-spacing: 2px;
@@ -45,8 +29,14 @@
 
 .booking-subtitle {
   font-size: 1.2rem;
-  color: #cccccc;
   font-style: italic;
+}
+
+.error-message {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .booking-form {
@@ -57,10 +47,9 @@
 }
 
 .booking-sidebar {
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
   height: fit-content;
 }
 
@@ -71,7 +60,6 @@
 .section-title {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #ffd700;
   margin-bottom: 1rem;
   letter-spacing: 1px;
 }
@@ -83,8 +71,7 @@
 }
 
 .service-option {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid;
   border-radius: 8px;
   padding: 1rem;
   cursor: pointer;
@@ -93,35 +80,34 @@
 }
 
 .service-option:hover {
-  border-color: #ffd700;
-  background: rgba(255, 215, 0, 0.1);
+  border-color: var(--primary-color);
+  background: var(--card-bg);
+  box-shadow: 0 0 8px var(--primary-color);
+  transform: translateY(-1px);
 }
 
 .service-option.selected {
-  border-color: #ffd700;
-  background: rgba(255, 215, 0, 0.2);
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  border-color: var(--primary-color);
+  background: var(--accent-bg);
+  box-shadow: 0 0 15px var(--primary-color);
+  transform: translateY(-2px);
 }
 
 .service-name {
   font-weight: bold;
-  color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
 .service-price {
-  color: #ffd700;
   font-weight: bold;
   font-size: 1.1rem;
 }
 
 .service-duration {
-  color: #cccccc;
   font-size: 0.9rem;
   font-style: italic;
 }
 
-/* Customer Information Form Styles */
 .customer-info-form {
   display: flex;
   flex-direction: column;
@@ -136,20 +122,17 @@
 
 .form-group label {
   font-weight: bold;
-  color: #ffd700 !important;
   font-size: 1.2rem;
   letter-spacing: 0.5px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
   margin-bottom: 0.5rem;
   display: block;
 }
 
 .form-group input {
   background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #ffd700;
+  border: 2px solid;
   border-radius: 6px;
   padding: 0.8rem;
-  color: #1a1a1a;
   font-family: 'Georgia', serif;
   font-size: 1rem;
   font-weight: normal;
@@ -158,14 +141,12 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #ffd700;
+  border-color: var(--primary-color);
   background: #ffffff;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  color: #1a1a1a;
+  box-shadow: 0 0 15px var(--primary-color);
 }
 
 .form-group input::placeholder {
-  color: #666666;
   opacity: 1;
   font-weight: normal;
 }
@@ -173,20 +154,17 @@
 .form-group input:invalid {
   border-color: #ff6b6b;
   background: rgba(255, 107, 107, 0.1);
-  color: #1a1a1a;
 }
 
 .form-group input:valid {
-  border-color: #ffd700;
+  border-color: var(--primary-color);
   background: #ffffff;
-  color: #1a1a1a;
 }
 
 .calendar-section {
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid;
 }
 
 .calendar-header {
@@ -202,8 +180,6 @@
 }
 
 .nav-btn {
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #1a1a1a;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 25px;
@@ -220,7 +196,6 @@
 .current-month {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffd700;
 }
 
 .calendar-grid {
@@ -233,7 +208,6 @@
 .calendar-day-header {
   text-align: center;
   font-weight: bold;
-  color: #ffd700;
   padding: 0.5rem;
   font-size: 0.9rem;
 }
@@ -256,24 +230,22 @@
 }
 
 .calendar-day.available {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
 }
 
 .calendar-day.available:hover {
-  background: rgba(255, 215, 0, 0.2);
+  background: var(--accent-bg);
   transform: scale(1.05);
 }
 
 .calendar-day.selected {
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #1a1a1a;
-  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+  background: var(--primary-color);
+  box-shadow: 0 3px 10px var(--primary-color);
 }
 
 .calendar-day.booked {
   background: rgba(255, 0, 0, 0.2);
-  color: #ff6666;
   cursor: not-allowed;
 }
 
@@ -286,7 +258,7 @@
 
 .time-slot {
   background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid;
   border-radius: 8px;
   padding: 1rem;
   text-align: center;
@@ -296,36 +268,32 @@
 }
 
 .time-slot:hover {
-  border-color: #ffd700;
-  background: rgba(255, 215, 0, 0.1);
+  border-color: var(--primary-color);
+  background: var(--accent-bg);
   transform: translateY(-2px);
 }
 
 .time-slot.selected {
-  border-color: #ffd700;
-  background: rgba(255, 215, 0, 0.2);
-  color: #ffd700;
+  border-color: var(--primary-color);
+  background: var(--accent-bg);
 }
 
 .time-slot.booked {
   background: rgba(255, 0, 0, 0.2);
-  color: #ff6666;
   cursor: not-allowed;
   border-color: rgba(255, 0, 0, 0.3);
 }
 
 .booking-summary {
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: 2rem;
+  border: 1px solid;
 }
 
 .summary-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffd700;
   margin-bottom: 1.5rem;
   text-align: center;
   letter-spacing: 1px;
@@ -350,10 +318,9 @@
 .customer-summary h4,
 .service-summary h4,
 .appointment-summary h4 {
-  color: #ffd700;
   font-size: 1.1rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+  border-bottom: 1px solid var(--accent-border);
   padding-bottom: 0.5rem;
 }
 
@@ -361,20 +328,16 @@
 .service-summary p,
 .appointment-summary p {
   margin-bottom: 0.5rem;
-  color: #ffffff;
   font-size: 0.95rem;
 }
 
 .customer-summary strong,
 .service-summary strong,
 .appointment-summary strong {
-  color: #ffd700;
   font-weight: bold;
 }
 
 .book-appointment-btn {
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #1a1a1a;
   border: none;
   padding: 1rem 3rem;
   font-size: 1.3rem;
@@ -384,14 +347,14 @@
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 5px 15px var(--shadow-color);
   letter-spacing: 1px;
 }
 
 .book-appointment-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(45deg, #ffed4e, #ffd700);
+  box-shadow: 0 8px 25px var(--shadow-color);
+  text-decoration: none;
 }
 
 .book-appointment-btn:disabled {

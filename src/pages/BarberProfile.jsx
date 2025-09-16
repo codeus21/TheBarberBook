@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import '../css/BarberProfile.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+// Theme handled by CSS classes in App.jsx
+import '../css/layout-profile.css';
+import '../css/unified-theme.css';
 
 function BarberProfile() {
     const [barberShop, setBarberShop] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [theme, setTheme] = useState({});
 
     // Load barber shop info from API
     useEffect(() => {
@@ -17,14 +18,6 @@ function BarberProfile() {
                 if (response.ok) {
                     const data = await response.json();
                     setBarberShop(data);
-                    
-                    // Set theme from barber shop data
-                    setTheme({
-                        primaryColor: data.themeColor || '#D4AF37',
-                        secondaryColor: data.secondaryColor || '#000000',
-                        fontFamily: data.fontFamily || 'Arial, sans-serif',
-                        logoUrl: data.logoUrl
-                    });
                 } else {
                     setError('Failed to load barber shop information');
                 }
@@ -38,6 +31,8 @@ function BarberProfile() {
         
         loadBarberShop();
     }, []);
+
+    // Theme handled by CSS classes in App.jsx
 
     if (loading) {
         return (
@@ -66,17 +61,13 @@ function BarberProfile() {
     }
 
     return (
-        <div className="barber-profile" style={{ 
-            '--primary-color': theme.primaryColor,
-            '--secondary-color': theme.secondaryColor,
-            '--font-family': theme.fontFamily
-        }}>
+        <div className="barber-profile">
             <div className="barber-container">
                 <div className="barber-header">
-                    {theme.logoUrl && (
-                        <img src={theme.logoUrl} alt="Logo" className="barber-logo" />
+                    {barberShop?.logoUrl && (
+                        <img src={barberShop.logoUrl} alt="Logo" className="barber-logo" />
                     )}
-                    <h1 className="barber-title" style={{ color: theme.primaryColor }}>
+                    <h1 className="barber-title">
                         {barberShop?.name || 'Barber Shop'}
                     </h1>
                     <p className="barber-subtitle">Professional Barber Services</p>

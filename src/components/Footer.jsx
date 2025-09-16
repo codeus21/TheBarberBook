@@ -1,9 +1,32 @@
 import { Link } from 'react-router-dom';
-import { getTenantFromUrl } from '../utils/apiHelper.js';
-import '../css/Footer.css'
+import { getTenantFromUrl, fetchWithTenant } from '../utils/apiHelper.js';
+// Theme handled by CSS classes in App.jsx
+import { useEffect, useState } from 'react';
+import '../css/layout-footer.css';
+import '../css/unified-theme.css';
 
 function Footer() {
     const tenant = getTenantFromUrl();
+    const [barberShop, setBarberShop] = useState(null);
+
+    // Theme handled by CSS classes in App.jsx
+
+    // Load barber shop info for dynamic branding
+    useEffect(() => {
+        const loadBarberShop = async () => {
+            try {
+                const response = await fetchWithTenant('/BarberShop/current');
+                if (response.ok) {
+                    const data = await response.json();
+                    setBarberShop(data);
+                }
+            } catch (err) {
+                console.error('Error loading barber shop:', err);
+            }
+        };
+        
+        loadBarberShop();
+    }, []);
     
     // Helper function to create links with tenant parameter
     const createLink = (path) => {
@@ -12,32 +35,32 @@ function Footer() {
 
     return(
         <footer className="footer">
-            <div className="footer-container">
-                <div className="footer-section">
-                    <h3 className="footer-title">Contact Us</h3>
-                    <p className="footer-text">123 Main Street</p>
-                    <p className="footer-text">Phone: 123-456-7890</p>
-                    <p className="footer-text">Email: info@thebarberbook.com</p>
+            <div className="footer-content">
+                <div className="footer-left">
+                    <Link to={createLink("/")} className="footer-brand">
+                        {barberShop?.name || 'Cuts'}
+                    </Link>
+                    <p className="footer-tagline">Professional Grooming Services</p>
                 </div>
                 
-                <div className="footer-section">
-                    <h3 className="footer-title">Services</h3>
-                    <Link to={createLink("/services")} className="footer-link">Haircuts</Link>
-                    <Link to={createLink("/services")} className="footer-link">Beard Trims</Link>
-                    <Link to={createLink("/services")} className="footer-link">Shaves</Link>
-                    <Link to={createLink("/services")} className="footer-link">Styling</Link>
+                <div className="footer-center">
+                    <ul className="footer-links">
+                        <li><Link to={createLink("/services")} className="footer-link">Services</Link></li>
+                        <li><Link to={createLink("/reviews")} className="footer-link">Reviews</Link></li>
+                        <li><Link to={createLink("/booker")} className="footer-link">Book Now</Link></li>
+                    </ul>
                 </div>
                 
-                <div className="footer-section">
-                    <h3 className="footer-title">Hours</h3>
-                    <p className="footer-text">Monday - Friday: 8am - 8pm</p>
-                    <p className="footer-text">Saturday - Sunday: Closed</p>
+                <div className="footer-right">
+                    <div className="footer-contact">
+                        <p className="footer-phone">(123) 456-7890</p>
+                        <p className="footer-hours">Mon-Fri: 9AM-6PM</p>
+                    </div>
                 </div>
             </div>
             
             <div className="footer-bottom">
-                <div className="footer-divider"></div>
-                <p className="footer-copyright">© 2025 The Barber Book. All rights reserved.</p>
+                © 2025 {barberShop?.name || 'Cuts'}. All rights reserved.
             </div>
         </footer>
     )

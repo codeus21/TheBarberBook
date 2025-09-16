@@ -1,0 +1,772 @@
+/* Unified Theme CSS - Colors and Fonts Only */
+
+/* Universal CSS Variables - Not theme-specific */
+:root {
+  /* Universal variables that don't change between themes */
+  --text-light: #FFFFFF;
+  --logo-font: Dancing Script, Brush Script MT, Lucida Handwriting, cursive;
+}
+
+/* Theme-specific CSS Variables */
+.app.elite-theme {
+  --primary-color: #8B5CF6;
+  --primary-light: #A855F7;
+  --secondary-color: #F8FAFC;
+  --background-color: #F8FAFC;
+  --background-light: #E2E8F0;
+  --text-color: #1E293B;
+  --text-secondary: #64748B;
+  --container-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --accent-bg: rgba(139, 92, 246, 0.1);
+  --accent-border: rgba(139, 92, 246, 0.2);
+  --shadow-color: #8B5CF6;
+  --font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --heading-font: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --border-radius: 16px;
+  --backdrop-filter: blur(10px);
+}
+
+.app.default-theme {
+  /* Default theme variables */
+  --primary-color: #D4AF37;
+  --primary-light: #FFED4E;
+  --secondary-color: #000000;
+  --background-color: #1A1A1A;
+  --background-light: #2D2D2D;
+  --text-color: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --container-bg: rgba(255, 255, 255, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --accent-bg: rgba(255, 215, 0, 0.1);
+  --accent-border: rgba(255, 215, 0, 0.3);
+  --shadow-color: #D4AF37;
+  --font-family: Georgia, serif;
+  --heading-font: Georgia, serif;
+  --border-radius: 15px;
+  --backdrop-filter: blur(10px);
+}
+
+.app.vintage-theme {
+  --primary-color: #8B4513;
+  --primary-light: #A0522D;
+  --secondary-color: #F5F5DC;
+  --background-color: #FAF0E6;
+  --background-light: #FDF5E6;
+  --text-color: #2F1B14;
+  --text-secondary: #5C3D2E;
+  --container-bg: #F5F5DC;
+  --card-bg: #F5F5DC;
+  --accent-bg: rgba(139, 69, 19, 0.1);
+  --accent-border: rgba(139, 69, 19, 0.3);
+  --shadow-color: #8B4513;
+  --font-family: Georgia, serif;
+  --heading-font: Georgia, serif;
+  --border-radius: 8px;
+  --backdrop-filter: none;
+}
+
+/* Services Page Theme Colors */
+.services-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.services-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.services-header::after {
+  background: var(--primary-color);
+}
+
+.services-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.services-subtitle {
+  color: var(--text-secondary);
+}
+
+.theme-badge {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--primary-color);
+}
+
+.service-card {
+  background: var(--card-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.service-card::before {
+  background: var(--primary-color);
+}
+
+.service-icon {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.service-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.service-description {
+  color: var(--text-secondary);
+}
+
+.service-price {
+  color: var(--text-color);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.service-duration {
+  color: var(--text-secondary);
+}
+
+.book-service-btn {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.book-service-btn:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px var(--shadow-color), 0 0 20px var(--primary-color);
+  color: var(--background-color);
+  transform: translateY(-2px);
+}
+
+.services-info {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.info-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.info-text {
+  color: var(--text-color);
+}
+
+/* Header Theme Colors */
+.header {
+  background: var(--background-color);
+  border-bottom-color: var(--primary-color);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.header-logo {
+  color: var(--primary-color);
+  text-shadow: 0 2px 4px var(--shadow-color);
+  font-family: var(--logo-font);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+  box-shadow: 0 0 10px var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.business-name {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.business-phone {
+  color: var(--text-secondary);
+}
+
+/* Footer Theme Colors */
+.footer {
+  background: var(--background-color);
+  border-top-color: var(--primary-color);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.footer-brand {
+  color: var(--primary-color);
+  text-shadow: 0 2px 4px var(--shadow-color);
+  font-family: var(--heading-font);
+}
+
+.footer-tagline {
+  color: var(--text-secondary);
+}
+
+.footer-link {
+  color: var(--text-secondary);
+}
+
+.footer-link:hover {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+  box-shadow: 0 0 10px var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.footer-phone {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.footer-hours {
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+.footer-bottom {
+  border-top-color: var(--accent-border);
+  color: var(--text-secondary);
+}
+
+/* BarberProfile Page Theme Colors */
+.barber-profile {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.barber-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.barber-header::after {
+  background: var(--primary-color);
+}
+
+.barber-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.barber-subtitle {
+  color: var(--text-secondary);
+}
+
+.barber-image-section {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--accent-border);
+}
+
+.barber-image-placeholder {
+  background: linear-gradient(45deg, #333, #555);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.barber-image-placeholder::before {
+  color: var(--text-light);
+}
+
+.barber-logo {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+  background: var(--accent-bg);
+  border-left-color: var(--primary-color);
+}
+
+.info-label {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.info-value {
+  color: var(--text-color);
+}
+
+.barber-hours {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.hours-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.hours-text {
+  color: var(--text-color);
+}
+
+.book-button {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.book-button:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px var(--shadow-color), 0 0 20px var(--primary-color);
+  color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Reviews Page Theme Colors */
+.reviews-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.reviews-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.reviews-header::after {
+  background: var(--primary-color);
+}
+
+.reviews-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.reviews-subtitle {
+  color: var(--text-secondary);
+}
+
+.welcome-message {
+  color: var(--primary-color);
+}
+
+.review-card {
+  background: var(--card-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.review-card::before {
+  background: var(--primary-color);
+}
+
+.review-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.reviewer-avatar {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 3px 10px var(--shadow-color);
+}
+
+.reviewer-name {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.review-date {
+  color: var(--text-secondary);
+}
+
+.star {
+  color: var(--primary-color);
+}
+
+.review-text {
+  color: var(--text-secondary);
+}
+
+.review-service {
+  color: var(--primary-color);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.add-review-section {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.add-review-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.add-review-text {
+  color: var(--text-color);
+}
+
+.book-now-btn {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.book-now-btn:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px var(--shadow-color), 0 0 20px var(--primary-color);
+  color: var(--background-color);
+  transform: translateY(-2px);
+}
+
+/* Booker Page Theme Colors */
+.booking-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.booking-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.booking-header::after {
+  background: var(--primary-color);
+}
+
+.booking-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.booking-subtitle {
+  color: var(--text-secondary);
+}
+
+.error-message {
+  color: #ff6666;
+  background: rgba(255, 107, 107, 0.1);
+  border-color: #ff6666;
+}
+
+.booking-sidebar {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.service-option {
+  background: var(--card-bg);
+  border-color: var(--accent-border);
+}
+
+.service-option:hover {
+  border-color: var(--primary-color);
+  background: var(--card-bg);
+  box-shadow: 0 0 8px var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.service-option.selected {
+  border-color: var(--primary-color);
+  background: var(--accent-bg);
+  box-shadow: 0 0 25px var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.service-name {
+  color: var(--text-color);
+}
+
+.service-price {
+  color: var(--primary-color);
+}
+
+.service-duration {
+  color: var(--text-secondary);
+}
+
+.booking-page .form-group label {
+  color: var(--text-color);
+  font-family: var(--heading-font);
+}
+
+.form-group input {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--primary-color);
+  color: #000000;
+}
+
+.form-group input:focus {
+  background: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px var(--primary-color);
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+.form-group input::placeholder {
+  color: #666666;
+}
+
+.form-group input:invalid {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  color: #000000;
+}
+
+.form-group input:valid {
+  border-color: var(--primary-color);
+  background: #ffffff;
+  color: #000000;
+}
+
+.calendar-section {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.nav-btn {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.nav-btn:hover {
+  box-shadow: 0 5px 15px var(--shadow-color), 0 0 15px var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.current-month {
+  color: var(--primary-color);
+}
+
+.calendar-day-header {
+  color: var(--primary-color);
+}
+
+.calendar-day.other-month {
+  color: #666;
+}
+
+.calendar-day.available {
+  color: var(--text-color);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+}
+
+.calendar-day.available:hover {
+  background: var(--accent-bg);
+  box-shadow: 0 0 15px var(--primary-color);
+  transform: scale(1.05);
+}
+
+.calendar-day.selected {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 0 20px var(--primary-color);
+  transform: scale(1.1);
+}
+
+.calendar-day.booked {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff6666;
+}
+
+.time-slot {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-border);
+}
+
+.time-slot:hover {
+  border-color: var(--primary-color);
+  background: var(--accent-bg);
+  box-shadow: 0 0 15px var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.time-slot.selected {
+  border-color: var(--primary-color);
+  background: var(--accent-bg);
+  color: var(--primary-color);
+  box-shadow: 0 0 20px var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.time-slot.booked {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff6666;
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+.booking-summary {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.summary-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.customer-summary,
+.service-summary,
+.appointment-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.customer-summary h4,
+.service-summary h4,
+.appointment-summary h4 {
+  color: var(--primary-color);
+  border-bottom-color: rgba(255, 215, 0, 0.3);
+}
+
+.customer-summary p,
+.service-summary p,
+.appointment-summary p {
+  color: var(--text-color);
+}
+
+.customer-summary strong,
+.service-summary strong,
+.appointment-summary strong {
+  color: var(--primary-color);
+}
+
+.book-appointment-btn {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.book-appointment-btn:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px var(--shadow-color), 0 0 20px var(--primary-color);
+  color: var(--background-color);
+  transform: translateY(-2px);
+}
+
+/* Confirmation Page Theme Colors */
+.confirmation-page {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+.confirmation-container {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.confirmation-header::after {
+  background: var(--primary-color);
+}
+
+.confirmation-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.confirmation-subtitle {
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.success-icon {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 10px 20px var(--shadow-color), 0 0 30px var(--primary-color);
+}
+
+.confirmation-details {
+  background: var(--container-bg);
+  border-color: var(--accent-border);
+  backdrop-filter: var(--backdrop-filter);
+}
+
+.details-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.detail-item {
+  background: var(--accent-bg);
+  border-left-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.detail-item:hover {
+  background: var(--accent-bg);
+  transform: translateX(5px);
+  box-shadow: 0 0 20px var(--primary-color);
+}
+
+.detail-label {
+  color: var(--primary-color);
+}
+
+.detail-value {
+  color: var(--text-color);
+}
+
+.confirmation-message {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.message-title {
+  color: var(--primary-color);
+  font-family: var(--heading-font);
+}
+
+.message-text {
+  color: var(--text-color);
+}
+
+.contact-info {
+  color: var(--text-secondary);
+}
+
+.done-button {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.done-button:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 25px var(--shadow-color), 0 0 20px var(--primary-color);
+  color: var(--secondary-color);
+  transform: translateY(-2px);
+}

@@ -1,0 +1,136 @@
+/* Footer Layout Structure - Common across all tenants */
+
+.footer {
+  padding: 2rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid;
+  backdrop-filter: var(--backdrop-filter);
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-left, .footer-center, .footer-right {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-brand {
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.footer-center {
+  text-align: center;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-link {
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.footer-link:hover {
+  text-decoration: none;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.footer-contact p {
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+.footer-phone {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.footer-hours {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.footer-bottom {
+  border-top: 1px solid;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-left, .footer-center, .footer-right {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .footer-links {
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .footer-right {
+    text-align: center;
+  }
+  
+  .footer-bottom {
+    margin-top: 0;
+    padding-top: 1rem;
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .footer {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .footer-left, .footer-center, .footer-right {
+    min-width: 200px;
+  }
+}
