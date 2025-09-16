@@ -42,7 +42,7 @@ function Footer() {
             <div className="footer-content">
                 <div className="footer-left">
                     <Link to={createLink("/")} className="footer-brand">
-                        {barberShop?.name || 'Clean Cuts'}
+                        {barberShop?.name || 'Cuts'}
                     </Link>
                     <p className="footer-tagline">Professional Grooming Services</p>
                 </div>
@@ -64,7 +64,7 @@ function Footer() {
             </div>
             
             <div className="footer-bottom">
-                © 2025 {barberShop?.name || 'Clean Cuts'}. All rights reserved.
+                © 2025 {barberShop?.name || 'Cuts'}. All rights reserved.
             </div>
         </footer>
     )

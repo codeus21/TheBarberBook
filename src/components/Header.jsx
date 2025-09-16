@@ -45,7 +45,7 @@ function Header(){
         <header className={`header ${tenant}-theme`}>
             <div className="header-left">
                 <Link to={createLink("/")} className="header-logo">
-                    {barberShop?.name || 'Clean Cuts'}
+                    {barberShop?.name || 'Cuts'}
                 </Link>
             </div>
             
@@ -58,7 +58,7 @@ function Header(){
             
             <div className="header-right">
                 <div className="header-info">
-                    <div className="business-name">{barberShop?.name || 'Clean Cuts'}</div>
+                    <div className="business-name">{barberShop?.name || 'Cuts'}</div>
                     <div className="business-phone">{barberShop?.businessPhone || '(123) 456-7890'}</div>
                 </div>
             </div>
