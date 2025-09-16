@@ -510,9 +510,9 @@
   color: var(--text-secondary);
 }
 
-.form-group label {
-  color: var(--primary-color);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+.booking-page .form-group label {
+  color: var(--text-color);
+  font-family: var(--heading-font);
 }
 
 .form-group input {
