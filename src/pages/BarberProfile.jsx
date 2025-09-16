@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
-import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+// Theme handled by CSS classes in App.jsx
 import '../css/layout-profile.css';
 import '../css/unified-theme.css';
 
@@ -9,8 +9,6 @@ function BarberProfile() {
     const [barberShop, setBarberShop] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const tenant = getTenantFromUrl();
-    const theme = getCurrentTheme(tenant);
 
     // Load barber shop info from API
     useEffect(() => {
@@ -34,10 +32,7 @@ function BarberProfile() {
         loadBarberShop();
     }, []);
 
-    // Apply theme CSS variables dynamically
-    useEffect(() => {
-        applyTheme(theme);
-    }, [theme]);
+    // Theme handled by CSS classes in App.jsx
 
     if (loading) {
         return (
@@ -66,7 +61,7 @@ function BarberProfile() {
     }
 
     return (
-        <div className={`barber-profile ${tenant}-theme`}>
+        <div className="barber-profile">
             <div className="barber-container">
                 <div className="barber-header">
                     {barberShop?.logoUrl && (

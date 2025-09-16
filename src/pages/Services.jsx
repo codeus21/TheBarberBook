@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
-import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+// Theme handled by CSS classes in App.jsx
 import '../css/layout.css';
 import '../css/unified-theme.css';
 
@@ -11,7 +11,6 @@ function Services() {
     const [error, setError] = useState(null);
     const [barberShop, setBarberShop] = useState(null);
     const tenant = getTenantFromUrl();
-    const theme = getCurrentTheme(tenant);
 
     // Load services and barber shop data from API
     useEffect(() => {
@@ -40,10 +39,7 @@ function Services() {
         loadData();
     }, []);
 
-    // Apply theme CSS variables dynamically
-    useEffect(() => {
-        applyTheme(theme);
-    }, [theme]);
+    // Theme handled by CSS classes in App.jsx
 
     // Get service icon based on service name
     const getServiceIcon = (serviceName) => {
@@ -82,18 +78,15 @@ function Services() {
     }
 
     return(
-        <div className={`services-page ${tenant}-theme`}>
+        <div className="services-page">
             <div className="services-container">
                 <div className="services-header">
                     <h1 className="services-title">
-                        {barberShop?.name || theme.content.servicesTitle}
+                        {barberShop?.name || 'Our Services'}
                     </h1>
                     <p className="services-subtitle">
-                        {theme.content.servicesSubtitle}
+                        Professional Grooming Services
                     </p>
-                    {theme.content.badgeText && (
-                        <div className="theme-badge">{theme.content.badgeText}</div>
-                    )}
                 </div>
                 
                 <div className="services-grid">
@@ -107,7 +100,7 @@ function Services() {
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
                             <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-service-btn">
-                                {theme.content.buttonText}
+                                Book Now
                             </Link>
                         </div>
                     ))}

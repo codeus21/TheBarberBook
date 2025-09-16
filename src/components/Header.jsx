@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getTenantFromUrl, fetchWithTenant } from '../utils/apiHelper.js';
-import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+// Theme imports removed - handled by individual pages
 import '../css/layout-header.css';
 import '../css/unified-theme.css';
 
 function Header(){
     const [tenant, setTenant] = useState('default');
     const [barberShop, setBarberShop] = useState(null);
-    const theme = getCurrentTheme(tenant);
 
     // Get tenant from URL and load barber shop info
     useEffect(() => {
@@ -31,10 +30,7 @@ function Header(){
         loadBarberShop();
     }, []);
 
-    // Apply theme CSS variables dynamically
-    useEffect(() => {
-        applyTheme(theme);
-    }, [theme]);
+    // Theme is applied by individual pages, not by Header
 
     // Helper function to create links with tenant parameter
     const createLink = (path) => {
@@ -42,7 +38,7 @@ function Header(){
     };
 
     return(
-        <header className={`header ${tenant}-theme`}>
+        <header className="header">
             <div className="header-left">
                 <Link to={createLink("/")} className="header-logo">
                     {barberShop?.name || 'Cuts'}

@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
 import { getTenantFromUrl, fetchWithTenant } from '../utils/apiHelper.js';
-import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+// Theme handled by CSS classes in App.jsx
 import { useEffect, useState } from 'react';
 import '../css/layout-footer.css';
 import '../css/unified-theme.css';
 
 function Footer() {
     const tenant = getTenantFromUrl();
-    const theme = getCurrentTheme(tenant);
     const [barberShop, setBarberShop] = useState(null);
 
-    // Apply theme CSS variables dynamically
-    useEffect(() => {
-        applyTheme(theme);
-    }, [theme]);
+    // Theme handled by CSS classes in App.jsx
 
     // Load barber shop info for dynamic branding
     useEffect(() => {
@@ -38,7 +34,7 @@ function Footer() {
     };
 
     return(
-        <footer className={`footer ${tenant}-theme`}>
+        <footer className="footer">
             <div className="footer-content">
                 <div className="footer-left">
                     <Link to={createLink("/")} className="footer-brand">

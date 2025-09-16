@@ -1,8 +1,34 @@
 /* Unified Theme CSS - Colors and Fonts Only */
 
-/* Default CSS Variables - Will be overridden by applyTheme() */
+/* Universal CSS Variables - Not theme-specific */
 :root {
-  /* Colors */
+  /* Universal variables that don't change between themes */
+  --text-light: #FFFFFF;
+  --logo-font: Dancing Script, Brush Script MT, Lucida Handwriting, cursive;
+}
+
+/* Theme-specific CSS Variables */
+.app.elite-theme {
+  --primary-color: #8B5CF6;
+  --primary-light: #A855F7;
+  --secondary-color: #F8FAFC;
+  --background-color: #F8FAFC;
+  --background-light: #E2E8F0;
+  --text-color: #1E293B;
+  --text-secondary: #64748B;
+  --container-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --accent-bg: rgba(139, 92, 246, 0.1);
+  --accent-border: rgba(139, 92, 246, 0.2);
+  --shadow-color: #8B5CF6;
+  --font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --heading-font: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --border-radius: 16px;
+  --backdrop-filter: blur(10px);
+}
+
+.app.default-theme {
+  /* Default theme variables */
   --primary-color: #D4AF37;
   --primary-light: #FFED4E;
   --secondary-color: #000000;
@@ -10,21 +36,34 @@
   --background-light: #2D2D2D;
   --text-color: #FFFFFF;
   --text-secondary: #CCCCCC;
-  --text-light: #FFFFFF;
   --container-bg: rgba(255, 255, 255, 0.05);
   --card-bg: rgba(255, 255, 255, 0.05);
   --accent-bg: rgba(255, 215, 0, 0.1);
   --accent-border: rgba(255, 215, 0, 0.3);
   --shadow-color: #D4AF37;
-
-  /* Fonts */
   --font-family: Georgia, serif;
   --heading-font: Georgia, serif;
-  --logo-font: Dancing Script, Brush Script MT, Lucida Handwriting, cursive;
-
-  /* Effects */
   --border-radius: 15px;
   --backdrop-filter: blur(10px);
+}
+
+.app.vintage-theme {
+  --primary-color: #8B4513;
+  --primary-light: #A0522D;
+  --secondary-color: #F5F5DC;
+  --background-color: #FAF0E6;
+  --background-light: #FDF5E6;
+  --text-color: #2F1B14;
+  --text-secondary: #5C3D2E;
+  --container-bg: #F5F5DC;
+  --card-bg: #F5F5DC;
+  --accent-bg: rgba(139, 69, 19, 0.1);
+  --accent-border: rgba(139, 69, 19, 0.3);
+  --shadow-color: #8B4513;
+  --font-family: Georgia, serif;
+  --heading-font: Georgia, serif;
+  --border-radius: 8px;
+  --backdrop-filter: none;
 }
 
 /* Services Page Theme Colors */

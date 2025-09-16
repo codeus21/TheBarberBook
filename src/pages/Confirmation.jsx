@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getTenantFromUrl } from '../utils/apiHelper.js';
-import { getCurrentTheme, applyTheme } from '../utils/themeConfig.js';
+// Theme handled by CSS classes, not JavaScript
 import '../css/layout-confirmation.css';
 import '../css/unified-theme.css';
 
 function Confirmation(){
     const [appointmentData, setAppointmentData] = useState(null);
     const tenant = getTenantFromUrl();
-    const theme = getCurrentTheme(tenant);
 
     useEffect(() => {
         // Retrieve appointment data from localStorage
@@ -21,10 +20,24 @@ function Confirmation(){
         }
     }, []);
 
-    // Apply theme CSS variables dynamically
+    // Debug theme application
     useEffect(() => {
-        applyTheme(theme);
-    }, [theme]);
+        console.log('=== CONFIRMATION PAGE DEBUG ===');
+        console.log('URL:', window.location.href);
+        console.log('Tenant from URL:', tenant);
+        console.log('Done button will navigate to:', `/?tenant=${tenant}`);
+        
+        // Debug: Check if CSS variables are set
+        setTimeout(() => {
+            const root = document.documentElement;
+            console.log('CSS Variables:');
+            console.log('--primary-color:', getComputedStyle(root).getPropertyValue('--primary-color'));
+            console.log('--background-color:', getComputedStyle(root).getPropertyValue('--background-color'));
+            console.log('--accent-bg:', getComputedStyle(root).getPropertyValue('--accent-bg'));
+            console.log('--text-color:', getComputedStyle(root).getPropertyValue('--text-color'));
+            console.log('=== END DEBUG ===');
+        }, 100);
+    }, [tenant]);
 
     const formatDate = (date) => {
         return date.toLocaleDateString('en-US', { 
@@ -37,7 +50,7 @@ function Confirmation(){
 
     if (!appointmentData) {
         return (
-            <div className={`confirmation-page ${tenant}-theme`}>
+            <div className="confirmation-page">
                 <div className="confirmation-container">
                     <div className="confirmation-header">
                         <h1 className="confirmation-title">Loading...</h1>
@@ -48,7 +61,7 @@ function Confirmation(){
     }
 
     return(
-        <div className={`confirmation-page ${tenant}-theme`}>
+        <div className="confirmation-page">
             <div className="confirmation-container">
                 <div className="confirmation-header">
                     <h1 className="confirmation-title">Booking Confirmed!</h1>
