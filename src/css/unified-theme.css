@@ -518,14 +518,14 @@
 .form-group input {
   background: rgba(255, 255, 255, 0.9);
   border-color: var(--primary-color);
-  color: var(--background-color);
+  color: #000000;
 }
 
 .form-group input:focus {
   background: #ffffff;
   border-color: var(--primary-color);
   box-shadow: 0 0 20px var(--primary-color);
-  color: var(--background-color);
+  color: #000000;
   transform: translateY(-1px);
 }
 
@@ -536,13 +536,13 @@
 .form-group input:invalid {
   border-color: #ff6b6b;
   background: rgba(255, 107, 107, 0.1);
-  color: var(--background-color);
+  color: #000000;
 }
 
 .form-group input:valid {
   border-color: var(--primary-color);
   background: #ffffff;
-  color: var(--background-color);
+  color: #000000;
 }
 
 .calendar-section {

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 // Theme handled by CSS classes in App.jsx
-import '../css/layout.css';
+import '../css/layout-services.css';
 import '../css/unified-theme.css';
 
 function Services() {
@@ -99,7 +99,7 @@ function Services() {
                             </p>
                             <div className="service-price">${service.price}</div>
                             <div className="service-duration">{service.durationMinutes} min</div>
-                            <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-service-btn">
+                            <Link to={`/booker?tenant=${tenant}`} className="book-service-btn">
                                 Book Now
                             </Link>
                         </div>

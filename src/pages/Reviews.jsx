@@ -6,6 +6,7 @@ import '../css/unified-theme.css';
 
 function Reviews() {
     // Theme handled by CSS classes in App.jsx
+    const tenant = getTenantFromUrl();
     
     return (
         <div className="reviews-page">
@@ -123,7 +124,7 @@ function Reviews() {
                         Ready to join our satisfied customers? Book your appointment today and 
                         experience the professional grooming services that our clients love.
                     </p>
-                    <Link to={`/booker?tenant=${getTenantFromUrl()}`} className="book-now-btn">Book Now</Link>
+                    <Link to={`/booker?tenant=${tenant}`} className="book-now-btn">Book Now</Link>
                 </div>
             </div>
         </div>
