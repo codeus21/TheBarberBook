@@ -2,15 +2,16 @@
 
 .reviews-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  padding: 2rem;
 }
 
 .reviews-container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
-  flex: 1;
+  border-radius: 15px;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid;
 }
 
 .reviews-header {
@@ -20,46 +21,61 @@
 
 .reviews-title {
   font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
 }
 
 .reviews-subtitle {
   font-size: 1.2rem;
-  margin-bottom: 2rem;
-  font-weight: 300;
+  font-style: italic;
 }
 
 .welcome-message {
-  font-size: 1.1rem;
   text-align: center;
+  font-size: 1.3rem;
   margin-bottom: 2rem;
-  padding: 1rem;
-  border-radius: var(--border-radius);
+  font-weight: bold;
 }
 
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
 }
 
 .review-card {
-  border: 1px solid;
-  border-radius: var(--border-radius);
+  border-radius: 12px;
   padding: 2rem;
+  border: 1px solid;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
 }
 
 .review-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .review-header {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .reviewer-avatar {
@@ -69,8 +85,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
   margin-right: 1rem;
+  font-size: 1.5rem;
+  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
 }
 
 .reviewer-info {
@@ -78,80 +95,94 @@
 }
 
 .reviewer-name {
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
 .review-date {
   font-size: 0.9rem;
+  font-style: italic;
 }
 
 .star-rating {
   display: flex;
+  gap: 0.2rem;
   margin-bottom: 1rem;
 }
 
 .star {
   font-size: 1.2rem;
-  margin-right: 0.25rem;
 }
 
 .review-text {
   line-height: 1.6;
-  margin-bottom: 1rem;
+  flex-grow: 1;
+  font-style: italic;
 }
 
 .review-footer {
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  border-top: 1px solid;
 }
 
 .review-service {
-  font-weight: 600;
   font-size: 0.9rem;
+  background: var(--accent-bg);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  border: 1px solid var(--accent-border);
 }
 
 .add-review-section {
-  border: 1px solid;
-  border-radius: var(--border-radius);
+  border-radius: 12px;
   padding: 2rem;
+  margin: 2rem 0;
   text-align: center;
+  border: 1px solid;
 }
 
 .add-review-title {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: bold;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .add-review-text {
-  margin-bottom: 2rem;
   line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
 .book-now-btn {
-  display: inline-block;
-  padding: 1rem 2rem;
-  text-decoration: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  font-size: 1.1rem;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  letter-spacing: 1px;
 }
 
 .book-now-btn:hover {
   transform: translateY(-2px);
-  color: white;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
   text-decoration: none;
 }
 
-/* Mobile responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .reviews-container {
+  .reviews-page {
     padding: 1rem;
+  }
+  
+  .reviews-container {
+    padding: 2rem;
   }
   
   .reviews-title {
@@ -160,5 +191,10 @@
   
   .reviews-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .review-card {
+    padding: 1.5rem;
   }
 }
