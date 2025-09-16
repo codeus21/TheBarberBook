@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getTenantFromUrl } from '../utils/apiHelper.js';
 // Theme handled by CSS classes in App.jsx
 import '../css/layout-reviews.css';
 import '../css/unified-theme.css';

@@ -38,24 +38,7 @@ function Confirmation(){
         loadBarberShop();
     }, []);
 
-    // Debug theme application
-    useEffect(() => {
-        console.log('=== CONFIRMATION PAGE DEBUG ===');
-        console.log('URL:', window.location.href);
-        console.log('Tenant from URL:', tenant);
-        console.log('Done button will navigate to:', `/?tenant=${tenant}`);
-        
-        // Debug: Check if CSS variables are set
-        setTimeout(() => {
-            const root = document.documentElement;
-            console.log('CSS Variables:');
-            console.log('--primary-color:', getComputedStyle(root).getPropertyValue('--primary-color'));
-            console.log('--background-color:', getComputedStyle(root).getPropertyValue('--background-color'));
-            console.log('--accent-bg:', getComputedStyle(root).getPropertyValue('--accent-bg'));
-            console.log('--text-color:', getComputedStyle(root).getPropertyValue('--text-color'));
-            console.log('=== END DEBUG ===');
-        }, 100);
-    }, [tenant]);
+    // Theme handled by CSS classes in App.jsx
 
     const formatDate = (date) => {
         return date.toLocaleDateString('en-US', { 
