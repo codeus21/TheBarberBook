@@ -34,12 +34,12 @@ const PasswordStrengthIndicator = ({ password, onStrengthChange }) => {
         // Length checks
         if (password.length < 8) {
             errors.push('At least 8 characters required');
-        } else {
-            score += 1;
         }
 
-        if (password.length >= 12) score += 1;
-        if (password.length >= 16) score += 1;
+        // Check for spaces
+        if (/\s/.test(password)) {
+            errors.push('No spaces allowed');
+        }
 
         // Character variety checks
         if (/[a-z]/.test(password)) score += 1;
@@ -69,24 +69,20 @@ const PasswordStrengthIndicator = ({ password, onStrengthChange }) => {
 
         // Determine strength level
         let level, label, color;
-        if (score <= 2) {
+        if (score <= 1) {
             level = 1;
             label = 'Very Weak';
             color = '#ff4444';
-        } else if (score <= 4) {
+        } else if (score <= 2) {
             level = 2;
             label = 'Weak';
             color = '#ff8800';
-        } else if (score <= 6) {
+        } else if (score <= 3) {
             level = 3;
-            label = 'Fair';
-            color = '#ffbb00';
-        } else if (score <= 8) {
-            level = 4;
             label = 'Good';
             color = '#88cc00';
         } else {
-            level = 5;
+            level = 4;
             label = 'Strong';
             color = '#00aa00';
         }
@@ -105,7 +101,7 @@ const PasswordStrengthIndicator = ({ password, onStrengthChange }) => {
                 <div 
                     className="strength-fill" 
                     style={{ 
-                        width: `${(strength.level / 5) * 100}%`,
+                        width: `${(strength.level / 4) * 100}%`,
                         backgroundColor: strength.color
                     }}
                 />

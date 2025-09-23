@@ -25,6 +25,11 @@ const PasswordChangeModal = ({ isOpen, onClose, onSuccess }) => {
         }));
         setError('');
         setSuccess('');
+        
+        // Clear error if spaces are removed from passwords
+        if (error === 'Passwords cannot contain spaces' && !value.includes(' ')) {
+            setError('');
+        }
     };
 
     const togglePasswordVisibility = (field) => {
@@ -44,6 +49,13 @@ const PasswordChangeModal = ({ isOpen, onClose, onSuccess }) => {
             // Validate passwords match
             if (formData.newPassword !== formData.confirmPassword) {
                 setError('New passwords do not match');
+                setLoading(false);
+                return;
+            }
+
+            // Validate no spaces in passwords
+            if (formData.currentPassword.includes(' ') || formData.newPassword.includes(' ')) {
+                setError('Passwords cannot contain spaces');
                 setLoading(false);
                 return;
             }
@@ -70,12 +82,23 @@ const PasswordChangeModal = ({ isOpen, onClose, onSuccess }) => {
                     onClose();
                 }, 1500);
             } else {
-                const errorData = await response.json();
-                setError(errorData.message || 'Failed to change password');
+                try {
+                    const errorData = await response.json();
+                    setError(errorData.message || errorData.title || 'Failed to change password');
+                } catch (parseError) {
+                    // If response is not JSON (plain text), get the text
+                    const errorText = await response.text();
+                    setError(errorText || 'Failed to change password');
+                }
             }
         } catch (err) {
-            setError('Error connecting to server');
             console.error('Password change error:', err);
+            // Check if it's a network error or a response parsing error
+            if (err.message && err.message.includes('fetch')) {
+                setError('Error connecting to server');
+            } else {
+                setError('An unexpected error occurred');
+            }
         } finally {
             setLoading(false);
         }
