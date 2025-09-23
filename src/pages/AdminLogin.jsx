@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../css/AdminLogin.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 import PasswordSetupModal from '../components/PasswordSetupModal.jsx';
+import ForgotPasswordModal from '../components/ForgotPasswordModal.jsx';
 
 function AdminLogin() {
     const [username, setUsername] = useState("admin");
@@ -11,6 +12,7 @@ function AdminLogin() {
     const [error, setError] = useState("");
     const [authStatus, setAuthStatus] = useState(null);
     const [showPasswordSetup, setShowPasswordSetup] = useState(false);
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [tenantName, setTenantName] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     
@@ -159,6 +161,20 @@ function AdminLogin() {
                     >
                         {loading ? 'Signing In...' : 'Sign In'}
                     </button>
+
+                    {/* Forgot Password Button - Only show for non-default tenants */}
+                    {!authStatus?.isDefaultTenant && (
+                        <div className="forgot-password-section">
+                            <button
+                                type="button"
+                                className="forgot-password-btn"
+                                onClick={() => setShowForgotPassword(true)}
+                                disabled={loading}
+                            >
+                                Forgot Password?
+                            </button>
+                        </div>
+                    )}
                 </form>
 
                 <div className="admin-login-footer">
@@ -175,6 +191,13 @@ function AdminLogin() {
                 isOpen={showPasswordSetup}
                 onClose={() => setShowPasswordSetup(false)}
                 onSuccess={handlePasswordSetupSuccess}
+                tenantName={tenantName}
+            />
+
+            {/* Forgot Password Modal */}
+            <ForgotPasswordModal
+                isOpen={showForgotPassword}
+                onClose={() => setShowForgotPassword(false)}
                 tenantName={tenantName}
             />
         </div>

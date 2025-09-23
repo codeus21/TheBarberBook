@@ -182,6 +182,32 @@
     margin: 0;
 }
 
+/* Forgot Password Section */
+.forgot-password-section {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.forgot-password-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-btn:hover:not(:disabled) {
+    color: #5a6fd8;
+}
+
+.forgot-password-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Responsive Design */
 @media (max-width: 480px) {
     .admin-login-container {

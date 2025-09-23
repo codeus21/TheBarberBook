@@ -9,6 +9,7 @@ import Reviews from './pages/Reviews';
 import Services from './pages/Services';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import ResetPasswordModal from './components/ResetPasswordModal';
 import { getTenantFromUrl } from './utils/apiHelper.js';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           {/* Admin routes - no header/footer */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/reset-password" element={<ResetPasswordModal />} />
           
           {/* Public routes - with header/footer */}
           <Route path="/" element={
