@@ -36,6 +36,62 @@
     margin: 0;
 }
 
+.tenant-info {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.tenant-name {
+    font-weight: 600;
+    color: #495057;
+    margin: 0 0 4px 0;
+    font-size: 14px;
+}
+
+.default-tenant-note {
+    color: #6c757d;
+    margin: 0;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-container input {
+    width: 100%;
+    padding-right: 45px; /* Make room for the toggle button */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    color: #666;
+}
+
+.password-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.password-toggle:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .admin-login-form {
     display: flex;
     flex-direction: column;
@@ -124,6 +180,32 @@
     color: #888;
     font-size: 0.9rem;
     margin: 0;
+}
+
+/* Forgot Password Section */
+.forgot-password-section {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.forgot-password-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-btn:hover:not(:disabled) {
+    color: #5a6fd8;
+}
+
+.forgot-password-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Responsive Design */

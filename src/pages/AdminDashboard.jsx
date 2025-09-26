@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/AdminDashboard.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
+import PasswordChangeModal from '../components/PasswordChangeModal.jsx';
 
 function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
@@ -9,6 +10,7 @@ function AdminDashboard() {
     const [error, setError] = useState("");
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [showRescheduleModal, setShowRescheduleModal] = useState(false);
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [rescheduleData, setRescheduleData] = useState({
         newDate: "",
         newTime: ""
@@ -259,6 +261,13 @@ function AdminDashboard() {
                     </div>
                     <div className="admin-user">
                         <span>Welcome, {localStorage.getItem('adminName')}</span>
+                        <button 
+                            onClick={() => setShowPasswordModal(true)} 
+                            className="password-btn"
+                            title="Change Password"
+                        >
+                            🔒 Change Password
+                        </button>
                         <button onClick={handleLogout} className="logout-btn">Logout</button>
                     </div>
                 </div>
@@ -433,6 +442,16 @@ function AdminDashboard() {
                     </div>
                 </div>
             )}
+
+            {/* Password Change Modal */}
+            <PasswordChangeModal
+                isOpen={showPasswordModal}
+                onClose={() => setShowPasswordModal(false)}
+                onSuccess={() => {
+                    // Optionally show a success message or refresh data
+                    console.log('Password changed successfully');
+                }}
+            />
         </div>
     );
 }
