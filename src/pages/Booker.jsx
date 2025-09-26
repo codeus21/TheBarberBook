@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 // Theme handled by CSS classes in App.jsx
 import '../css/layout-booker.css';
@@ -30,11 +30,8 @@ function Booker() {
     // Service options - will be loaded from API
     const [services, setServices] = useState([]);
     
-    // Available time slots (8am - 7pm, Monday - Friday, hourly only)
-    const timeSlots = [
-        "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
-        "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"
-    ];
+    // Available time slots - will be loaded from API based on availability schedule
+    const [timeSlots, setTimeSlots] = useState([]);
     
     // Calendar functions
     const getDaysInMonth = (date) => {
@@ -115,6 +112,7 @@ function Booker() {
             setSelectedDate(date);
             setSelectedTime(null); // Reset time when date changes
             loadBookedSlots(date); // Load booked slots for this date
+            loadAvailableTimeSlots(date); // Load available time slots for this date
         }
     };
     
@@ -175,6 +173,34 @@ function Booker() {
         loadServices();
     }, []);
 
+    // Load available time slots for selected date
+    const loadAvailableTimeSlots = async (date) => {
+        if (!date) return;
+        
+        try {
+            const response = await fetchWithTenant(`/Appointments/available-slots/${date.toISOString().split('T')[0]}`);
+            if (response.ok) {
+                const data = await response.json();
+                // Convert 24-hour format to 12-hour format for display
+                const formattedSlots = data.map(slot => {
+                    const [hours, minutes] = slot.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+                    return `${displayHour}:${minutes} ${ampm}`;
+                });
+                setTimeSlots(formattedSlots);
+            } else {
+                setTimeSlots([]);
+                setError('Failed to load available time slots');
+            }
+        } catch (err) {
+            setTimeSlots([]);
+            setError('Error loading available time slots');
+            console.error('Error:', err);
+        }
+    };
+
     // Theme handled by CSS classes in App.jsx
 
     // Load booked slots for a specific date
@@ -193,9 +219,9 @@ function Booker() {
                     return `${displayHour}:${minutes} ${ampm}`;
                 });
                 
-                // Find booked slots (slots not in available list)
-                const booked = timeSlots.filter(slot => !availableDisplaySlots.includes(slot));
-                setBookedSlots(new Set(booked));
+                // Since we're now loading available slots directly, we don't need to filter booked slots
+                // The available slots are already filtered by the backend
+                setBookedSlots(new Set());
             }
         } catch (err) {
             console.error('Error loading booked slots:', err);

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../css/AdminDashboard.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 import PasswordChangeModal from '../components/PasswordChangeModal.jsx';
+import AvailabilityManager from '../components/AvailabilityManager.jsx';
 
 function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
@@ -11,6 +12,7 @@ function AdminDashboard() {
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [showRescheduleModal, setShowRescheduleModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [showAvailabilityModal, setShowAvailabilityModal] = useState(false);
     const [rescheduleData, setRescheduleData] = useState({
         newDate: "",
         newTime: ""
@@ -80,6 +82,7 @@ function AdminDashboard() {
             setLoading(false);
         }
     };
+
 
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
@@ -286,6 +289,7 @@ function AdminDashboard() {
                     <div className="header-actions">
                         <button onClick={loadAppointments} className="refresh-btn">Refresh</button>
                         <button onClick={handleCleanupCompleted} className="cleanup-btn">Mark Yesterday Complete</button>
+                        <button onClick={() => setShowAvailabilityModal(true)} className="availability-btn">Manage Availability</button>
                     </div>
                 </div>
 
@@ -450,6 +454,15 @@ function AdminDashboard() {
                 onSuccess={() => {
                     // Optionally show a success message or refresh data
                     console.log('Password changed successfully');
+                }}
+            />
+
+            {/* Availability Management Modal */}
+            <AvailabilityManager
+                isOpen={showAvailabilityModal}
+                onClose={() => setShowAvailabilityModal(false)}
+                onSuccess={() => {
+                    // Availability schedules are managed within the AvailabilityManager component
                 }}
             />
         </div>
