@@ -18,10 +18,8 @@ export const createApiUrl = (endpoint) => {
 // Fetch with tenant parameter
 export const fetchWithTenant = async (endpoint, options = {}) => {
     const url = createApiUrl(endpoint);
-    console.log('fetchWithTenant called with:', { endpoint, url, options });
     try {
         const response = await fetch(url, options);
-        console.log('fetchWithTenant response:', { status: response.status, statusText: response.statusText, url });
         return response;
     } catch (error) {
         console.error('fetchWithTenant error:', error);

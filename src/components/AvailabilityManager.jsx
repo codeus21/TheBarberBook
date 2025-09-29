@@ -56,7 +56,6 @@ function AvailabilityManager({ isOpen, onClose }) {
             const response = await fetchWithTenant(`/Appointments/booked-slots/${day.dateString}`);
             if (response.ok) {
                 const bookedSlots = await response.json();
-                console.log(`Booked slots for ${day.dateString}:`, bookedSlots);
                 return new Set(bookedSlots);
             }
         } catch (err) {
@@ -81,7 +80,6 @@ function AvailabilityManager({ isOpen, onClose }) {
     }, [isOpen]);
 
     const loadSchedules = async () => {
-        console.log('loadSchedules called');
         setLoading(true);
         try {
             const token = localStorage.getItem('adminToken');
@@ -93,7 +91,6 @@ function AvailabilityManager({ isOpen, onClose }) {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('Loaded schedules:', data);
                     setSchedules(data);
             } else {
                 setError('Failed to load availability schedules');
@@ -133,42 +130,31 @@ function AvailabilityManager({ isOpen, onClose }) {
     };
 
     const handleSaveDaySchedule = async () => {
-        console.log('handleSaveDaySchedule called');
         if (!editingDay) {
-            console.log('No editingDay, returning');
             return;
         }
 
         try {
-            console.log('Starting save process for day:', editingDay.dateString);
             const token = localStorage.getItem('adminToken');
-            console.log('Token found:', !!token);
             
             // First, delete existing schedules for this specific date
             const existingSchedules = schedules.filter(s => {
                 const scheduleDateOnly = s.scheduleDate.split('T')[0];
                 return scheduleDateOnly === editingDay.dateString;
             });
-            console.log('Existing schedules to delete:', existingSchedules.length);
-            console.log('Editing day date string:', editingDay.dateString);
-            console.log('Current schedules:', schedules.map(s => ({ id: s.id, date: s.scheduleDate })));
             for (const schedule of existingSchedules) {
-                console.log('Deleting schedule with ID:', schedule.id);
-                const deleteResponse = await fetchWithTenant(`/Availability/${schedule.id}`, {
+                await fetchWithTenant(`/Availability/${schedule.id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log('Delete response status:', deleteResponse.status);
             }
 
             // Create new schedules for selected hours
             const selectedHoursArray = Array.from(selectedHours).sort();
-            console.log('Selected hours array:', selectedHoursArray);
             
             if (selectedHoursArray.length === 0) {
-                console.log('No hours selected, skipping schedule creation');
                 setShowEditModal(false);
                 setEditingDay(null);
                 setSelectedHours(new Set());
@@ -198,34 +184,6 @@ function AvailabilityManager({ isOpen, onClose }) {
                     }
                     
                     // Create schedule for this time block
-                    console.log('Creating schedule:', {
-                        ScheduleDate: editingDay.dateString,
-                        StartTime: currentStart,
-                        EndTime: currentEnd,
-                        IsAvailable: true
-                    });
-                    
-                    console.log('About to make API call to /Availability');
-                    
-                    // Test if we can reach the backend at all
-                    try {
-                        const testResponse = await fetchWithTenant('/Health');
-                        console.log('Health check response:', testResponse.status);
-                    } catch (testError) {
-                        console.error('Health check failed:', testError);
-                    }
-                    
-                    // Test if we can reach an admin endpoint
-                    try {
-                        const adminTestResponse = await fetchWithTenant('/Admin/availability', {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-                        console.log('Admin availability test response:', adminTestResponse.status);
-                    } catch (adminTestError) {
-                        console.error('Admin availability test failed:', adminTestError);
-                    }
                     
                     // Add timeout to prevent hanging
                     const controller = new AbortController();
@@ -248,27 +206,19 @@ function AvailabilityManager({ isOpen, onClose }) {
                     
                     clearTimeout(timeoutId);
                     
-                    console.log('Create response received, status:', createResponse.status);
-                    console.log('Create response headers:', Object.fromEntries(createResponse.headers.entries()));
                     if (!createResponse.ok) {
                         const errorText = await createResponse.text();
-                        console.error('Failed to create schedule:', errorText);
                         throw new Error(`Failed to create schedule: ${errorText}`);
                     }
-                    
-                    const responseData = await createResponse.json();
-                    console.log('Schedule created successfully:', responseData);
                     
                     currentStart = null;
                     currentEnd = null;
                 }
             }
 
-            console.log('Save process completed successfully');
             setShowEditModal(false);
             setEditingDay(null);
             setSelectedHours(new Set());
-            console.log('About to call loadSchedules()');
             loadSchedules();
         } catch (err) {
             console.error('Error in handleSaveDaySchedule:', err);
@@ -281,7 +231,6 @@ function AvailabilityManager({ isOpen, onClose }) {
     };
 
     const handleClearAllSchedules = async () => {
-        console.log('handleClearAllSchedules called');
         const confirmed = window.confirm(
             'Are you sure you want to delete ALL availability schedules?\n\n' +
             'This will remove all set hours for all days and make them unavailable for booking.\n\n' +
@@ -295,7 +244,6 @@ function AvailabilityManager({ isOpen, onClose }) {
             
             // Delete all existing schedules
             for (const schedule of schedules) {
-                console.log('ClearAll: Deleting schedule with ID:', schedule.id);
                 await fetchWithTenant(`/Availability/${schedule.id}`, {
                     method: 'DELETE',
                     headers: {
@@ -340,7 +288,6 @@ function AvailabilityManager({ isOpen, onClose }) {
     };
 
     const handleDeleteSchedule = async (id) => {
-        console.log('handleDeleteSchedule called with ID:', id);
         if (!window.confirm('Are you sure you want to delete this schedule?')) {
             return;
         }
@@ -405,7 +352,37 @@ function AvailabilityManager({ isOpen, onClose }) {
                                             const scheduleDateOnly = s.scheduleDate.split('T')[0];
                                             return scheduleDateOnly === day.dateString;
                                         });
-                                        const availableTimes = daySchedules.map(schedule => {
+                                        // Group consecutive schedules into ranges
+                                        const availableTimes = [];
+                                        if (daySchedules.length > 0) {
+                                            // Sort schedules by start time
+                                            const sortedSchedules = daySchedules.sort((a, b) => 
+                                                a.startTime.localeCompare(b.startTime)
+                                            );
+                                            
+                                            let currentStart = sortedSchedules[0].startTime;
+                                            let currentEnd = sortedSchedules[0].endTime; // Track the end time of the last schedule
+                                            
+                                            for (let i = 1; i < sortedSchedules.length; i++) {
+                                                const schedule = sortedSchedules[i];
+                                                const prevSchedule = sortedSchedules[i-1];
+                                                
+                                                // Check if this schedule starts where the previous one ended
+                                                if (schedule.startTime === prevSchedule.endTime) {
+                                                    // Extend the current range - update the end time
+                                                    currentEnd = schedule.endTime;
+                                                } else {
+                                                    // End current range and start a new one
+                                                    availableTimes.push(formatTimeRange(currentStart, currentEnd));
+                                                    currentStart = schedule.startTime;
+                                                    currentEnd = schedule.endTime;
+                                                }
+                                            }
+                                            // Add the last range - for single schedules, this will be the only range
+                                            availableTimes.push(formatTimeRange(currentStart, currentEnd));
+                                        }
+                                        
+                                        function formatTimeRange(startTime, endTime) {
                                             const formatTime = (time24) => {
                                                 const [hours] = time24.split(':');
                                                 const hour = parseInt(hours);
@@ -413,8 +390,28 @@ function AvailabilityManager({ isOpen, onClose }) {
                                                 const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
                                                 return `${displayHour}${ampm}`;
                                             };
-                                            return formatTime(schedule.startTime); // Only show start time
-                                        });
+                                            
+                                            const start = formatTime(startTime);
+                                            
+                                            // If it's a single hour slot (end time is start time + 1 hour), just show the start time
+                                            const [startHours] = startTime.split(':');
+                                            const [endHours] = endTime.split(':');
+                                            const startHour = parseInt(startHours);
+                                            const endHour = parseInt(endHours);
+                                            
+                                            if (endHour === startHour + 1) {
+                                                return start;
+                                            }
+                                            
+                                            // For ranges, we want to show the end time as the start time of the last slot
+                                            // So we subtract 1 hour from the endTime to get the correct display
+                                            const displayEndHour = endHour - 1; // Subtract 1 hour
+                                            const finalEndHour = displayEndHour === 0 ? 12 : displayEndHour > 12 ? displayEndHour - 12 : displayEndHour;
+                                            const endAmpm = displayEndHour >= 12 ? 'PM' : 'AM';
+                                            const end = `${finalEndHour}${endAmpm}`;
+                                            
+                                            return `${start}-${end}`;
+                                        }
                                         
                                         return (
                                             <div key={`${day.dateString}-${index}`} className={`day-card ${day.isToday ? 'today' : ''}`}>
@@ -477,10 +474,6 @@ function AvailabilityManager({ isOpen, onClose }) {
                                 const isSelected = selectedHours.has(hour.timeString);
                                 const isDisabled = isBooked || isPast;
                                 
-                                // Debug logging for booked slots
-                                if (isBooked) {
-                                    console.log(`Hour ${hour.timeString} is booked`);
-                                }
                                 
                                 return (
                                     <label 
@@ -513,10 +506,7 @@ function AvailabilityManager({ isOpen, onClose }) {
                         </div>
                         
                         <div className="modal-actions">
-                            <button onClick={() => {
-                                console.log('Save button clicked!');
-                                handleSaveDaySchedule();
-                            }} className="confirm-btn">Save Hours</button>
+                            <button onClick={handleSaveDaySchedule} className="confirm-btn">Save Hours</button>
                             <button onClick={() => {
                                 setShowEditModal(false);
                                 setEditingDay(null);
