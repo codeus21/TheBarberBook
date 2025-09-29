@@ -67,13 +67,12 @@ function Booker() {
     };
     
     const isDateAvailable = (date) => {
-        const day = date.getDay();
         const today = new Date();
         const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         const twoWeeksFromNow = new Date(today.getTime() + (14 * 24 * 60 * 60 * 1000));
         
-        // Only Monday-Friday (1-5), not in the past, and within 2 weeks
-        return day >= 1 && day <= 5 && date >= todayDateOnly && date <= twoWeeksFromNow;
+        // All days of the week (Sunday-Saturday), not in the past, and within 2 weeks
+        return date >= todayDateOnly && date <= twoWeeksFromNow;
     };
     
     const isDateBooked = (date) => {
