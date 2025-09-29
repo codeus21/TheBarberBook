@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { fetchWithTenant } from '../utils/apiHelper.js';
 
-function AvailabilityManager({ isOpen, onClose, onSuccess }) {
+function AvailabilityManager({ isOpen, onClose }) {
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -56,6 +56,7 @@ function AvailabilityManager({ isOpen, onClose, onSuccess }) {
             const response = await fetchWithTenant(`/Appointments/booked-slots/${day.dateString}`);
             if (response.ok) {
                 const bookedSlots = await response.json();
+                console.log(`Booked slots for ${day.dateString}:`, bookedSlots);
                 return new Set(bookedSlots);
             }
         } catch (err) {
@@ -188,7 +189,13 @@ function AvailabilityManager({ isOpen, onClose, onSuccess }) {
                 
                 // If this is the last hour or there's a gap, end the current block
                 if (!nextHour || parseInt(nextHour.split(':')[0]) !== parseInt(hour.split(':')[0]) + 1) {
-                    currentEnd = `${(parseInt(hour.split(':')[0]) + 1).toString().padStart(2, '0')}:00`;
+                    const endHour = parseInt(hour.split(':')[0]) + 1;
+                    // Handle the case where end hour would be 24 (which is invalid for TimeSpan)
+                    if (endHour === 24) {
+                        currentEnd = "23:59"; // Use 23:59 instead of 24:00
+                    } else {
+                        currentEnd = `${endHour.toString().padStart(2, '0')}:00`;
+                    }
                     
                     // Create schedule for this time block
                     console.log('Creating schedule:', {
@@ -400,7 +407,7 @@ function AvailabilityManager({ isOpen, onClose, onSuccess }) {
                                         });
                                         const availableTimes = daySchedules.map(schedule => {
                                             const formatTime = (time24) => {
-                                                const [hours, minutes] = time24.split(':');
+                                                const [hours] = time24.split(':');
                                                 const hour = parseInt(hours);
                                                 const ampm = hour >= 12 ? 'PM' : 'AM';
                                                 const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
@@ -469,6 +476,11 @@ function AvailabilityManager({ isOpen, onClose, onSuccess }) {
                                 const isPast = isTimeInPast(hour.hour, editingDay);
                                 const isSelected = selectedHours.has(hour.timeString);
                                 const isDisabled = isBooked || isPast;
+                                
+                                // Debug logging for booked slots
+                                if (isBooked) {
+                                    console.log(`Hour ${hour.timeString} is booked`);
+                                }
                                 
                                 return (
                                     <label 
