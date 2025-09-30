@@ -18,5 +18,11 @@ export const createApiUrl = (endpoint) => {
 // Fetch with tenant parameter
 export const fetchWithTenant = async (endpoint, options = {}) => {
     const url = createApiUrl(endpoint);
-    return fetch(url, options);
+    try {
+        const response = await fetch(url, options);
+        return response;
+    } catch (error) {
+        console.error('fetchWithTenant error:', error);
+        throw error;
+    }
 };

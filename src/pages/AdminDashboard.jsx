@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../css/AdminDashboard.css';
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 import PasswordChangeModal from '../components/PasswordChangeModal.jsx';
+import AvailabilityManager from '../components/AvailabilityManager.jsx';
 
 function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
@@ -11,6 +12,7 @@ function AdminDashboard() {
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [showRescheduleModal, setShowRescheduleModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('appointments'); // 'appointments' or 'availability'
     const [rescheduleData, setRescheduleData] = useState({
         newDate: "",
         newTime: ""
@@ -80,6 +82,7 @@ function AdminDashboard() {
             setLoading(false);
         }
     };
+
 
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
@@ -281,13 +284,32 @@ function AdminDashboard() {
                     </div>
                 )}
 
-                <div className="appointments-header">
-                    <h2>Appointments ({appointments.length})</h2>
-                    <div className="header-actions">
-                        <button onClick={loadAppointments} className="refresh-btn">Refresh</button>
-                        <button onClick={handleCleanupCompleted} className="cleanup-btn">Mark Yesterday Complete</button>
-                    </div>
+                {/* Tab Navigation */}
+                <div className="admin-tabs">
+                    <button 
+                        className={`tab-btn ${activeTab === 'appointments' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('appointments')}
+                    >
+                        📅 Appointments ({appointments.length})
+                    </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'availability' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('availability')}
+                    >
+                        ⏰ Manage Times
+                    </button>
                 </div>
+
+                {/* Tab Content */}
+                {activeTab === 'appointments' && (
+                    <>
+                        <div className="appointments-header">
+                            <h2>Appointments ({appointments.length})</h2>
+                            <div className="header-actions">
+                                <button onClick={loadAppointments} className="refresh-btn">Refresh</button>
+                                <button onClick={handleCleanupCompleted} className="cleanup-btn">Mark Yesterday Complete</button>
+                            </div>
+                        </div>
 
                 <div className="appointments-list">
                     {appointments.length === 0 ? (
@@ -387,6 +409,21 @@ function AdminDashboard() {
                         </>
                     )}
                 </div>
+                    </>
+                )}
+
+                {/* Availability Tab Content */}
+                {activeTab === 'availability' && (
+                    <div className="availability-tab-content">
+                        <AvailabilityManager
+                            isOpen={true}
+                            onClose={() => {}} // No close function needed for tab view
+                            onSuccess={() => {
+                                // Availability schedules are managed within the AvailabilityManager component
+                            }}
+                        />
+                    </div>
+                )}
             </div>
 
             {/* Reschedule Modal */}
@@ -452,6 +489,7 @@ function AdminDashboard() {
                     console.log('Password changed successfully');
                 }}
             />
+
         </div>
     );
 }
