@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchWithTenant, getTenantFromUrl } from '../utils/apiHelper.js';
 // Theme handled by CSS classes in App.jsx
@@ -172,12 +172,23 @@ function Booker() {
         loadServices();
     }, []);
 
+    // Cache for time slots to avoid repeated API calls
+    const timeSlotsCache = useRef(new Map());
+
     // Load available time slots for selected date
     const loadAvailableTimeSlots = async (date) => {
         if (!date) return;
         
+        const dateString = date.toISOString().split('T')[0];
+        
+        // Check cache first
+        if (timeSlotsCache.current.has(dateString)) {
+            setTimeSlots(timeSlotsCache.current.get(dateString));
+            return;
+        }
+        
         try {
-            const response = await fetchWithTenant(`/Appointments/available-slots/${date.toISOString().split('T')[0]}`);
+            const response = await fetchWithTenant(`/Appointments/available-slots/${dateString}`);
             if (response.ok) {
                 const data = await response.json();
                 // Convert 24-hour format to 12-hour format for display
@@ -188,6 +199,9 @@ function Booker() {
                     const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
                     return `${displayHour}:${minutes} ${ampm}`;
                 });
+                
+                // Cache the result
+                timeSlotsCache.current.set(dateString, formattedSlots);
                 setTimeSlots(formattedSlots);
             } else {
                 setTimeSlots([]);
@@ -225,6 +239,11 @@ function Booker() {
         } catch (err) {
             console.error('Error loading booked slots:', err);
         }
+    };
+
+    // Clear cache when appointment is booked to ensure fresh data
+    const clearTimeSlotsCache = () => {
+        timeSlotsCache.current.clear();
     };
 
     const handleBookAppointment = async () => {
@@ -271,6 +290,9 @@ function Booker() {
                 
                 if (response.ok) {
                     const createdAppointment = await response.json();
+                    
+                    // Clear cache since we just booked an appointment
+                    clearTimeSlotsCache();
                     
                     // Store appointment data for confirmation page
                     localStorage.setItem('appointmentData', JSON.stringify({
